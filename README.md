@@ -36,18 +36,24 @@ CLP provides persistent, queryable shared memory for AI agent fleets. Agents wri
 ## Structure
 
 ```
-docs/
-  protocol.md          # CLP specification
-  schema.md            # Ledger entry and shared state schemas
-  retrieval.md         # BM25 indexing and multi-pool retrieval
-  migration-guide.md   # Extracting CLP from founder-mode
-src/
-  core/                # Extractable core (ledger, query, state, schema, index)
-  retrieval/           # Retrieval subsystem (needs refactoring)
-  synthesis/           # Consolidation subsystem (needs refactoring)
-tests/
-examples/
+docs/                  # Placeholder for extracted protocol/reference docs
+examples/              # Placeholder for runnable examples
+src/hummbl_clp/core/   # Extractable core (ledger, query, state, schema, index)
+src/hummbl_clp/extensions/
+                       # Coupled founder-mode adapters pending decoupling
+tests/                 # Placeholder for extracted test coverage
+tools/                 # Repo-local validation tooling
 ```
+
+## Validation
+
+Run the repository baseline validator before opening a pull request:
+
+```powershell
+C:\Users\Owner\bin\python.cmd tools\validate_repo.py
+```
+
+Gitea CI runs the same command on pull requests and pushes to `master`.
 
 ## License
 
