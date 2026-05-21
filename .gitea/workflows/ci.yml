@@ -1,0 +1,25 @@
+name: hummbl-clp Gitea CI
+
+on:
+  pull_request:
+    branches: [master]
+  push:
+    branches: [master]
+
+jobs:
+  repo-validation:
+    runs-on: self-hosted
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate repository baseline
+        shell: powershell
+        run: |
+          $env:USERPROFILE = "C:\Users\Owner"
+          $env:APPDATA = "C:\Users\Owner\AppData\Roaming"
+          $env:LOCALAPPDATA = "C:\Users\Owner\AppData\Local"
+          $python = "C:\Users\Owner\bin\python.cmd"
+          & $python --version
+          & $python tools\validate_repo.py
