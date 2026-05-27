@@ -1,0 +1,27 @@
+name: merge-gate
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  merge-gate-check:
+    if: github.event_name == 'pull_request'
+    runs-on: [self-hosted, anvil-ci]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Verify canary doc exists
+        shell: pwsh
+        run: |
+          if (-not (Test-Path "docs/merge-gate-canary-2026-05-27.md")) {
+            Write-Error "Missing merge gate canary marker file"
+            exit 1
+          }
+          Write-Host "Merge gate canary marker verified"
+
+      - name: Report merge gate
+        run: |
+          $ts = Get-Date -AsUTC -Format "yyyy-MM-ddTHH:mm:ssZ"
+          Write-Host "Merge gate canary passed at $ts"
