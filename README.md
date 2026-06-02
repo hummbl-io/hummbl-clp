@@ -1,6 +1,11 @@
 # hummbl-clp
 
-**CLP: Cognitive Ledger Protocol** -- Shared memory and knowledge compilation for multi-agent coordination. Stdlib-only Python.
+**CLP: Cognitive Ledger Protocol** -- Shared memory and knowledge compilation for multi-agent coordination.
+
+[![Core Deps](https://img.shields.io/badge/core%20deps-zero-brightgreen)]()
+[![Optional Extras](https://img.shields.io/badge/optional-extras-blue)]()
+
+**Tier:** 1 — Stdlib Core + Optional Extras. Core ledger, query, and index are stdlib-only. The `[bus]` extra adds `hummbl-bus` integration.
 
 ## What This Is
 
