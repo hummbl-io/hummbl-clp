@@ -252,7 +252,12 @@ def _resolve_ledger_path(override: str | Path | None = None) -> Path:
 
 
 def _resolve_signing_secret() -> bytes | None:
-    """Resolve HMAC signing secret from BUS_SIGNING_SECRET env var."""
+    """Resolve HMAC signing secret from BUS_SIGNING_SECRET env var.
+
+    Returns the secret as bytes if set and 32+ bytes long, otherwise None.
+    Does NOT enforce fail-closed -- callers are responsible for checking
+    ``_allow_unsigned()`` when a secret is unavailable.
+    """
     raw = os.environ.get("BUS_SIGNING_SECRET")
     if not raw:
         return None
@@ -267,11 +272,74 @@ def _resolve_signing_secret() -> bytes | None:
     return secret_bytes
 
 
+def _allow_unsigned() -> bool:
+    """Return True if unsigned ledger writes are allowed (tests/dev only).
+
+    Default: False (fail-closed). Set CLP_ALLOW_UNSIGNED=1 to bypass.
+    Closes the prior fail-open default where a missing secret silently
+    produced unsigned entries that could be forged.
+    """
+    allow = os.environ.get("CLP_ALLOW_UNSIGNED", "").strip().lower()
+    return allow in ("1", "true", "yes", "on")
+
+
+def _resolve_federation_secret() -> bytes | None:
+    """Resolve federation verification secret from environment.
+
+    Checks FEDERATION_SECRET first, then falls back to BUS_SIGNING_SECRET.
+    Returns the secret as bytes if set and 32+ bytes long, otherwise None.
+    """
+    for var in ("FEDERATION_SECRET", "BUS_SIGNING_SECRET"):
+        raw = os.environ.get(var)
+        if not raw:
+            continue
+        secret_bytes = raw.encode("utf-8")
+        if len(secret_bytes) < 32:
+            logger.warning(
+                "%s too short (%d bytes, need 32+).",
+                var,
+                len(secret_bytes),
+            )
+            continue
+        return secret_bytes
+    return None
+
+
 def _sign_entry(entry_jsonl: str, secret: bytes) -> str:
     """Compute HMAC-SHA256 signature of a JSONL line."""
     return hmac.new(
         secret, entry_jsonl.encode("utf-8"), hashlib.sha256
     ).hexdigest()
+
+
+def verify_entry_signature(entry: LedgerEntry, secret: bytes) -> bool:
+    """Verify the HMAC-SHA256 signature of a ledger entry.
+
+    Returns True if the signature is present and valid, False otherwise.
+    Uses ``hmac.compare_digest`` for constant-time comparison to prevent
+    timing attacks.
+
+    Parameters
+    ----------
+    entry : LedgerEntry
+        The entry whose signature to verify.
+    secret : bytes
+        The HMAC-SHA256 key (32+ bytes).
+
+    Returns:
+    -------
+    bool
+        True if signature is valid, False if missing or mismatched.
+    """
+    if not entry.signature:
+        return False
+    # Reconstruct unsigned JSONL to verify
+    d = entry.to_dict()
+    d.pop("signature", None)
+    unsigned_entry = LedgerEntry.from_dict({**d, "signature": None})
+    unsigned_jsonl = unsigned_entry.to_jsonl()
+    expected_sig = _sign_entry(unsigned_jsonl, secret)
+    return hmac.compare_digest(entry.signature, expected_sig)
 
 
 def _harden_file_permissions(path: Path) -> None:
@@ -339,12 +407,28 @@ def post_entry(
     if secret is None:
         secret = _resolve_signing_secret()
 
-    # Sign if secret available
-    if secret is not None and entry.signature is None:
+    # CLP-001: Fail-closed if no signing secret in production.
+    # Entries must be signed to prevent forgery. Set CLP_ALLOW_UNSIGNED=1
+    # to bypass (tests/dev only).
+    if secret is None and not _allow_unsigned():
+        raise ValueError(
+            "HMAC signing required but no secret available. "
+            "Set BUS_SIGNING_SECRET (32+ bytes) or CLP_ALLOW_UNSIGNED=1 "
+            "for tests."
+        )
+
+    # Sign if secret available.
+    # CLP-001 (adversarial fix-up): Always re-sign with the local secret,
+    # ignoring any caller-supplied signature. A pre-set signature (even a
+    # forged one like "0"*64) would otherwise bypass signing and be persisted
+    # to the append-only ledger untouched. Stripping it unconditionally
+    # ensures post_entry always signs with the local secret.
+    d = entry.to_dict()
+    d["signature"] = None
+    entry = LedgerEntry.from_dict(d)
+    if secret is not None:
         jsonl_line = entry.to_jsonl()
         sig = _sign_entry(jsonl_line, secret)
-        # Reconstruct entry with signature
-        d = entry.to_dict()
         d["signature"] = sig
         entry = LedgerEntry.from_dict(d)
 
@@ -485,7 +569,7 @@ def validate_integrity(
             try:
                 data = json.loads(line)
                 entry = LedgerEntry.from_dict(data)
-            except (json.JSONDecodeError, KeyError, ValueError) as e:
+            except (json.JSONDecodeError, KeyError, ValueError, TypeError) as e:
                 errors.append(f"Line {line_num}: parse error: {e}")
                 continue
 
@@ -498,17 +582,30 @@ def validate_integrity(
 
             # Verify signature if present and secret available
             if entry.signature and secret:
-                # Reconstruct unsigned JSONL to verify
-                d = entry.to_dict()
-                d.pop("signature", None)
-                unsigned_entry = LedgerEntry.from_dict({**d, "signature": None})
-                unsigned_jsonl = unsigned_entry.to_jsonl()
-                expected_sig = _sign_entry(unsigned_jsonl, secret)
-                if not hmac.compare_digest(entry.signature, expected_sig):
+                try:
+                    sig_ok = verify_entry_signature(entry, secret)
+                except TypeError as e:
+                    errors.append(
+                        f"Line {line_num}: signature type error for "
+                        f"{entry.id}: {e}"
+                    )
+                    continue
+                if not sig_ok:
                     errors.append(
                         f"Line {line_num}: signature mismatch for {entry.id}"
                     )
                     continue
+            elif not entry.signature and secret and not _allow_unsigned():
+                # CLP-001: Fail-closed on unsigned entries when a secret is
+                # configured and unsigned writes are not explicitly allowed.
+                # An attacker who writes directly to the ledger file (bypassing
+                # post_entry) could otherwise inject unsigned entries that pass
+                # integrity validation silently.
+                errors.append(
+                    f"Line {line_num}: unsigned entry {entry.id} rejected "
+                    f"(secret configured but entry has no signature)"
+                )
+                continue
 
             valid_count += 1
 

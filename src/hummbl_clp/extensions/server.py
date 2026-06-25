@@ -48,6 +48,17 @@ DEFAULT_HOST = "127.0.0.1"
 MAX_REQUEST_BODY = 1_048_576
 
 
+def _require_auth() -> bool:
+    """Return True if auth is required (fail-closed when token not configured).
+
+    Default: True (fail-closed). Set CLP_ALLOW_NO_AUTH=1 to bypass
+    (tests/dev only). Closes the prior fail-open default where a missing
+    token silently accepted unauthenticated reads/writes.
+    """
+    allow = os.environ.get("CLP_ALLOW_NO_AUTH", "").strip().lower()
+    return allow not in ("1", "true", "yes", "on")
+
+
 class OpenBrainState:
     """Shared state for the server."""
 
@@ -118,35 +129,88 @@ class OpenBrainState:
         }
 
     def ingest(self, entries: list[dict[str, Any]]) -> dict[str, Any]:
-        """Ingest entries from a remote brain (federation)."""
-        from hummbl_clp.core.ledger_writer import post_entry
+        """Ingest entries from a remote brain (federation).
+
+        CLP-003: All incoming entries must carry a valid HMAC-SHA256
+        signature verified against FEDERATION_SECRET (or BUS_SIGNING_SECRET
+        as fallback). Unsigned or invalid-signature entries are rejected.
+        """
+        from hummbl_clp.core.ledger_writer import (
+            _allow_unsigned,
+            _resolve_federation_secret,
+            post_entry,
+            verify_entry_signature,
+        )
         from hummbl_clp.core.models import LedgerEntry
+
+        # Resolve the federation verification secret
+        fed_secret = _resolve_federation_secret()
+
+        # If no secret is available, we cannot verify any signatures.
+        # Fail-closed unless CLP_ALLOW_UNSIGNED=1 is set (tests/dev only).
+        if fed_secret is None and not _allow_unsigned():
+            return {
+                "ingested": 0,
+                "errors": [
+                    "Federation secret not configured (FEDERATION_SECRET or "
+                    "BUS_SIGNING_SECRET required for signature verification)"
+                ],
+            }
 
         ingested = 0
         errors = []
         for entry_data in entries:
             try:
+                # CLP-003: Require a full signed entry for federation.
+                # Entries without id/content_hash are created locally and
+                # cannot carry a verifiable signature from the remote brain.
+                if "id" not in entry_data or "content_hash" not in entry_data:
+                    errors.append(
+                        "Federation entries must include id and content_hash "
+                        "(full signed entry required)"
+                    )
+                    continue
+
+                # Create entry from the original data for signature verification.
+                # The signature covers the entry as received, BEFORE we add the
+                # "remote-ingest" tag. Modifying tags before verification would
+                # invalidate the signature.
+                entry = LedgerEntry.from_dict(entry_data)
+
+                # CLP-003: Verify HMAC signature on incoming entries.
+                # Reject unsigned entries to prevent forged identity injection.
+                if fed_secret is not None:
+                    if not entry.signature:
+                        errors.append(
+                            f"Entry {entry.id} rejected: unsigned entries "
+                            f"not allowed via federation"
+                        )
+                        continue
+                    if not verify_entry_signature(entry, fed_secret):
+                        errors.append(
+                            f"Entry {entry.id} rejected: signature "
+                            f"verification failed"
+                        )
+                        continue
+
+                # Add "remote-ingest" tag after signature verification.
                 tags = list(entry_data["tags"]) if "tags" in entry_data else []
                 if "remote-ingest" not in tags:
                     tags.append("remote-ingest")
                 entry_data["tags"] = tags
+                # CLP-003: Strip the remote signature before reconstruction.
+                # The tag modification invalidates the original signature, and
+                # post_entry must re-sign with the local secret so the written
+                # entry's signature matches its JSONL representation. Leaving
+                # the stale signature would cause validate_integrity() to flag
+                # every federated entry as a signature mismatch.
+                entry_data["signature"] = None
+                # Reconstruct entry with updated tags for writing
+                entry = LedgerEntry.from_dict(entry_data)
 
-                if "id" in entry_data and "content_hash" in entry_data:
-                    entry = LedgerEntry.from_dict(entry_data)
-                else:
-                    entry = LedgerEntry.create(
-                        content=entry_data["content"],
-                        agent=entry_data.get("agent", "remote"),
-                        vendor=entry_data.get("vendor", "unknown"),
-                        model=entry_data.get("model", "unknown"),
-                        entry_type=entry_data.get("type", "discovery"),
-                        scope=entry_data.get("scope", "project"),
-                        tags=tags,
-                        confidence=entry_data.get("confidence", 0.7),
-                    )
                 post_entry(entry, ledger_path=self.ledger_path)
                 ingested += 1
-            except (ValueError, KeyError) as e:
+            except (ValueError, KeyError, TypeError) as e:
                 errors.append(str(e))
 
         if ingested > 0:
@@ -207,7 +271,16 @@ def _make_handler(state: OpenBrainState, *, auth_token: str | None = None) -> ty
             self.wfile.write(body)
 
         def _check_auth(self) -> bool:
+            # CLP-002: Fail-closed when no auth token is configured.
+            # Prior default allowed unauthenticated access to all endpoints.
             if not auth_token:
+                if _require_auth():
+                    self._send_json(
+                        {"error": "unauthorized: OPEN_BRAIN_TOKEN not configured"},
+                        401,
+                    )
+                    return False
+                # CLP_ALLOW_NO_AUTH=1 bypass (tests/dev only)
                 return True
             header = self.headers.get("Authorization", "")
             expected = f"Bearer {auth_token}"
@@ -293,7 +366,20 @@ def run_server(
     if token:
         logger.info("Bearer token auth enabled")
     else:
-        logger.warning("No auth token configured -- server is open access")
+        # CLP-002: Fail-closed default. The server will reject all
+        # authenticated endpoints with 401 unless CLP_ALLOW_NO_AUTH=1
+        # is set (tests/dev only).
+        if _require_auth():
+            logger.warning(
+                "No OPEN_BRAIN_TOKEN configured -- server will reject "
+                "all requests with 401 (fail-closed). Set OPEN_BRAIN_TOKEN "
+                "or CLP_ALLOW_NO_AUTH=1 for tests."
+            )
+        else:
+            logger.warning(
+                "No auth token configured -- CLP_ALLOW_NO_AUTH=1 bypass "
+                "active (tests/dev only)"
+            )
 
     logger.info("Initializing Open Brain...")
     brain_state = OpenBrainState(state_dir=state_dir, ledger_path=ledger_path)
