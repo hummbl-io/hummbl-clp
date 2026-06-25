@@ -166,6 +166,15 @@ class LedgerEntry:
             )
         if len(self.links) > 20:
             raise ValueError(f"Maximum 20 links, got {len(self.links)}")
+        # CLP-001 (adversarial fix-up): signature must be a str or None.
+        # A non-string signature (e.g., 123, True) would cause
+        # hmac.compare_digest to raise TypeError, crashing ingest/validate
+        # loops (DoS vector). Reject at object creation.
+        if self.signature is not None and not isinstance(self.signature, str):
+            raise ValueError(
+                f"signature must be a str or None, got "
+                f"{type(self.signature).__name__}: {self.signature!r}"
+            )
         for link_id in self.links:
             if not link_id.startswith("clp-") or len(link_id) != 16:
                 raise ValueError(
