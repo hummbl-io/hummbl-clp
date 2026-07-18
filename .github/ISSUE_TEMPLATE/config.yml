@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Validation command
+    url: https://github.com/hummbl-dev/hummbl-clp/blob/main/CONTRIBUTING.md
+    about: Use existing validation command before opening issue-related PRs.
