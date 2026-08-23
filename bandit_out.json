@@ -1,0 +1,3116 @@
+{
+  "errors": [],
+  "generated_at": "2026-08-23T15:36:39Z",
+  "metrics": {
+    ".\\src\\hummbl_clp\\__init__.py": {
+      "CONFIDENCE.HIGH": 0,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 0,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 0,
+      "SEVERITY.MEDIUM": 0,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 88,
+      "nosec": 0,
+      "skipped_tests": 0
+    },
+    ".\\src\\hummbl_clp\\core\\__init__.py": {
+      "CONFIDENCE.HIGH": 0,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 0,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 0,
+      "SEVERITY.MEDIUM": 0,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 1,
+      "nosec": 0,
+      "skipped_tests": 0
+    },
+    ".\\src\\hummbl_clp\\core\\__main__.py": {
+      "CONFIDENCE.HIGH": 0,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 0,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 0,
+      "SEVERITY.MEDIUM": 0,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 326,
+      "nosec": 0,
+      "skipped_tests": 0
+    },
+    ".\\src\\hummbl_clp\\core\\indexer.py": {
+      "CONFIDENCE.HIGH": 3,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 0,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 3,
+      "SEVERITY.MEDIUM": 0,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 241,
+      "nosec": 0,
+      "skipped_tests": 0
+    },
+    ".\\src\\hummbl_clp\\core\\ledger_writer.py": {
+      "CONFIDENCE.HIGH": 3,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 0,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 3,
+      "SEVERITY.MEDIUM": 0,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 468,
+      "nosec": 0,
+      "skipped_tests": 0
+    },
+    ".\\src\\hummbl_clp\\core\\models.py": {
+      "CONFIDENCE.HIGH": 0,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 0,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 0,
+      "SEVERITY.MEDIUM": 0,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 317,
+      "nosec": 0,
+      "skipped_tests": 0
+    },
+    ".\\src\\hummbl_clp\\core\\query.py": {
+      "CONFIDENCE.HIGH": 0,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 0,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 0,
+      "SEVERITY.MEDIUM": 0,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 98,
+      "nosec": 0,
+      "skipped_tests": 0
+    },
+    ".\\src\\hummbl_clp\\core\\schema_validator.py": {
+      "CONFIDENCE.HIGH": 3,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 0,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 3,
+      "SEVERITY.MEDIUM": 0,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 175,
+      "nosec": 0,
+      "skipped_tests": 0
+    },
+    ".\\src\\hummbl_clp\\core\\scoring_lenses.py": {
+      "CONFIDENCE.HIGH": 1,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 0,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 0,
+      "SEVERITY.MEDIUM": 1,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 463,
+      "nosec": 0,
+      "skipped_tests": 0
+    },
+    ".\\src\\hummbl_clp\\core\\state_manager.py": {
+      "CONFIDENCE.HIGH": 3,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 0,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 3,
+      "SEVERITY.MEDIUM": 0,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 260,
+      "nosec": 0,
+      "skipped_tests": 0
+    },
+    ".\\src\\hummbl_clp\\core\\verified_writer.py": {
+      "CONFIDENCE.HIGH": 0,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 0,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 0,
+      "SEVERITY.MEDIUM": 0,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 106,
+      "nosec": 0,
+      "skipped_tests": 0
+    },
+    ".\\src\\hummbl_clp\\core\\working_memory.py": {
+      "CONFIDENCE.HIGH": 3,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 0,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 3,
+      "SEVERITY.MEDIUM": 0,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 537,
+      "nosec": 0,
+      "skipped_tests": 0
+    },
+    ".\\src\\hummbl_clp\\extensions\\__init__.py": {
+      "CONFIDENCE.HIGH": 0,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 0,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 0,
+      "SEVERITY.MEDIUM": 0,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 5,
+      "nosec": 0,
+      "skipped_tests": 0
+    },
+    ".\\src\\hummbl_clp\\extensions\\agenthub_bridge.py": {
+      "CONFIDENCE.HIGH": 7,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 0,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 6,
+      "SEVERITY.MEDIUM": 1,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 425,
+      "nosec": 0,
+      "skipped_tests": 0
+    },
+    ".\\src\\hummbl_clp\\extensions\\autoresearch_bridge.py": {
+      "CONFIDENCE.HIGH": 8,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 0,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 8,
+      "SEVERITY.MEDIUM": 0,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 305,
+      "nosec": 0,
+      "skipped_tests": 0
+    },
+    ".\\src\\hummbl_clp\\extensions\\boot_context.py": {
+      "CONFIDENCE.HIGH": 3,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 0,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 3,
+      "SEVERITY.MEDIUM": 0,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 171,
+      "nosec": 0,
+      "skipped_tests": 0
+    },
+    ".\\src\\hummbl_clp\\extensions\\client.py": {
+      "CONFIDENCE.HIGH": 0,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 0,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 0,
+      "SEVERITY.MEDIUM": 0,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 179,
+      "nosec": 0,
+      "skipped_tests": 0
+    },
+    ".\\src\\hummbl_clp\\extensions\\consolidator.py": {
+      "CONFIDENCE.HIGH": 1,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 0,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 0,
+      "SEVERITY.MEDIUM": 1,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 319,
+      "nosec": 0,
+      "skipped_tests": 0
+    },
+    ".\\src\\hummbl_clp\\extensions\\feedback_tracker.py": {
+      "CONFIDENCE.HIGH": 3,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 0,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 3,
+      "SEVERITY.MEDIUM": 0,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 141,
+      "nosec": 0,
+      "skipped_tests": 0
+    },
+    ".\\src\\hummbl_clp\\extensions\\migration.py": {
+      "CONFIDENCE.HIGH": 4,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 0,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 4,
+      "SEVERITY.MEDIUM": 0,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 392,
+      "nosec": 0,
+      "skipped_tests": 0
+    },
+    ".\\src\\hummbl_clp\\extensions\\research_processor.py": {
+      "CONFIDENCE.HIGH": 4,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 0,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 3,
+      "SEVERITY.MEDIUM": 1,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 358,
+      "nosec": 0,
+      "skipped_tests": 0
+    },
+    ".\\src\\hummbl_clp\\extensions\\retriever.py": {
+      "CONFIDENCE.HIGH": 3,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 0,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 3,
+      "SEVERITY.MEDIUM": 0,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 392,
+      "nosec": 0,
+      "skipped_tests": 0
+    },
+    ".\\src\\hummbl_clp\\extensions\\server.py": {
+      "CONFIDENCE.HIGH": 0,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 0,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 0,
+      "SEVERITY.MEDIUM": 0,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 342,
+      "nosec": 0,
+      "skipped_tests": 0
+    },
+    ".\\src\\hummbl_clp\\extensions\\startup_context.py": {
+      "CONFIDENCE.HIGH": 6,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 0,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 6,
+      "SEVERITY.MEDIUM": 0,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 156,
+      "nosec": 0,
+      "skipped_tests": 0
+    },
+    ".\\tests\\conftest.py": {
+      "CONFIDENCE.HIGH": 0,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 0,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 0,
+      "SEVERITY.MEDIUM": 0,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 18,
+      "nosec": 0,
+      "skipped_tests": 0
+    },
+    ".\\tests\\test_ledger_signing.py": {
+      "CONFIDENCE.HIGH": 34,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 1,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 35,
+      "SEVERITY.MEDIUM": 0,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 269,
+      "nosec": 0,
+      "skipped_tests": 0
+    },
+    ".\\tests\\test_server_security.py": {
+      "CONFIDENCE.HIGH": 39,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 1,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 40,
+      "SEVERITY.MEDIUM": 0,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 395,
+      "nosec": 0,
+      "skipped_tests": 0
+    },
+    ".\\tools\\validate_repo.py": {
+      "CONFIDENCE.HIGH": 0,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 0,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 0,
+      "SEVERITY.MEDIUM": 0,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 93,
+      "nosec": 0,
+      "skipped_tests": 0
+    },
+    "_totals": {
+      "CONFIDENCE.HIGH": 128,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 2,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 0,
+      "SEVERITY.LOW": 126,
+      "SEVERITY.MEDIUM": 4,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 7040,
+      "nosec": 0,
+      "skipped_tests": 0
+    }
+  },
+  "results": [
+    {
+      "code": "59     try:\n60         import subprocess\n61         root = subprocess.check_output(\n",
+      "col_offset": 8,
+      "end_col_offset": 25,
+      "filename": ".\\src\\hummbl_clp\\core\\indexer.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Consider possible security implications associated with the subprocess module.",
+      "line_number": 60,
+      "line_range": [
+        60
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/blacklists/blacklist_imports.html#b404-import-subprocess",
+      "test_id": "B404",
+      "test_name": "blacklist"
+    },
+    {
+      "code": "60         import subprocess\n61         root = subprocess.check_output(\n62             [\"git\", \"rev-parse\", \"--show-toplevel\"],\n63             stderr=subprocess.DEVNULL, text=True,\n64         ).strip()\n65         if root:\n",
+      "col_offset": 15,
+      "end_col_offset": 9,
+      "filename": ".\\src\\hummbl_clp\\core\\indexer.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Starting a process with a partial executable path",
+      "line_number": 61,
+      "line_range": [
+        61,
+        62,
+        63,
+        64
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b607_start_process_with_partial_path.html",
+      "test_id": "B607",
+      "test_name": "start_process_with_partial_path"
+    },
+    {
+      "code": "60         import subprocess\n61         root = subprocess.check_output(\n62             [\"git\", \"rev-parse\", \"--show-toplevel\"],\n63             stderr=subprocess.DEVNULL, text=True,\n64         ).strip()\n65         if root:\n",
+      "col_offset": 15,
+      "end_col_offset": 9,
+      "filename": ".\\src\\hummbl_clp\\core\\indexer.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "subprocess call - check for execution of untrusted input.",
+      "line_number": 61,
+      "line_range": [
+        61,
+        62,
+        63,
+        64
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b603_subprocess_without_shell_equals_true.html",
+      "test_id": "B603",
+      "test_name": "subprocess_without_shell_equals_true"
+    },
+    {
+      "code": "238     try:\n239         import subprocess\n240 \n",
+      "col_offset": 8,
+      "end_col_offset": 25,
+      "filename": ".\\src\\hummbl_clp\\core\\ledger_writer.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Consider possible security implications associated with the subprocess module.",
+      "line_number": 239,
+      "line_range": [
+        239
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/blacklists/blacklist_imports.html#b404-import-subprocess",
+      "test_id": "B404",
+      "test_name": "blacklist"
+    },
+    {
+      "code": "240 \n241         root = subprocess.check_output(\n242             [\"git\", \"rev-parse\", \"--show-toplevel\"],\n243             stderr=subprocess.DEVNULL,\n244             text=True,\n245         ).strip()\n246         if root:\n",
+      "col_offset": 15,
+      "end_col_offset": 9,
+      "filename": ".\\src\\hummbl_clp\\core\\ledger_writer.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Starting a process with a partial executable path",
+      "line_number": 241,
+      "line_range": [
+        241,
+        242,
+        243,
+        244,
+        245
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b607_start_process_with_partial_path.html",
+      "test_id": "B607",
+      "test_name": "start_process_with_partial_path"
+    },
+    {
+      "code": "240 \n241         root = subprocess.check_output(\n242             [\"git\", \"rev-parse\", \"--show-toplevel\"],\n243             stderr=subprocess.DEVNULL,\n244             text=True,\n245         ).strip()\n246         if root:\n",
+      "col_offset": 15,
+      "end_col_offset": 9,
+      "filename": ".\\src\\hummbl_clp\\core\\ledger_writer.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "subprocess call - check for execution of untrusted input.",
+      "line_number": 241,
+      "line_range": [
+        241,
+        242,
+        243,
+        244,
+        245
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b603_subprocess_without_shell_equals_true.html",
+      "test_id": "B603",
+      "test_name": "subprocess_without_shell_equals_true"
+    },
+    {
+      "code": "194     try:\n195         import subprocess\n196 \n",
+      "col_offset": 8,
+      "end_col_offset": 25,
+      "filename": ".\\src\\hummbl_clp\\core\\schema_validator.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Consider possible security implications associated with the subprocess module.",
+      "line_number": 195,
+      "line_range": [
+        195
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/blacklists/blacklist_imports.html#b404-import-subprocess",
+      "test_id": "B404",
+      "test_name": "blacklist"
+    },
+    {
+      "code": "196 \n197         root = subprocess.check_output(\n198             [\"git\", \"rev-parse\", \"--show-toplevel\"],\n199             stderr=subprocess.DEVNULL,\n200             text=True,\n201         ).strip()\n202         schema_path = Path(root) / \"contracts\" / \"cognition\" / \"schemas\" / filename\n",
+      "col_offset": 15,
+      "end_col_offset": 9,
+      "filename": ".\\src\\hummbl_clp\\core\\schema_validator.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Starting a process with a partial executable path",
+      "line_number": 197,
+      "line_range": [
+        197,
+        198,
+        199,
+        200,
+        201
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b607_start_process_with_partial_path.html",
+      "test_id": "B607",
+      "test_name": "start_process_with_partial_path"
+    },
+    {
+      "code": "196 \n197         root = subprocess.check_output(\n198             [\"git\", \"rev-parse\", \"--show-toplevel\"],\n199             stderr=subprocess.DEVNULL,\n200             text=True,\n201         ).strip()\n202         schema_path = Path(root) / \"contracts\" / \"cognition\" / \"schemas\" / filename\n",
+      "col_offset": 15,
+      "end_col_offset": 9,
+      "filename": ".\\src\\hummbl_clp\\core\\schema_validator.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "subprocess call - check for execution of untrusted input.",
+      "line_number": 197,
+      "line_range": [
+        197,
+        198,
+        199,
+        200,
+        201
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b603_subprocess_without_shell_equals_true.html",
+      "test_id": "B603",
+      "test_name": "subprocess_without_shell_equals_true"
+    },
+    {
+      "code": "322     try:\n323         with urlopen(req, timeout=timeout_s) as resp:\n324             body = json.loads(resp.read().decode(\"utf-8\"))\n",
+      "col_offset": 13,
+      "end_col_offset": 44,
+      "filename": ".\\src\\hummbl_clp\\core\\scoring_lenses.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 22,
+        "link": "https://cwe.mitre.org/data/definitions/22.html"
+      },
+      "issue_severity": "MEDIUM",
+      "issue_text": "Audit url open for permitted schemes. Allowing use of file:/ or custom schemes is often unexpected.",
+      "line_number": 323,
+      "line_range": [
+        323
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/blacklists/blacklist_calls.html#b310-urllib-urlopen",
+      "test_id": "B310",
+      "test_name": "blacklist"
+    },
+    {
+      "code": "75     try:\n76         import subprocess\n77 \n",
+      "col_offset": 8,
+      "end_col_offset": 25,
+      "filename": ".\\src\\hummbl_clp\\core\\state_manager.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Consider possible security implications associated with the subprocess module.",
+      "line_number": 76,
+      "line_range": [
+        76
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/blacklists/blacklist_imports.html#b404-import-subprocess",
+      "test_id": "B404",
+      "test_name": "blacklist"
+    },
+    {
+      "code": "77 \n78         root = subprocess.check_output(\n79             [\"git\", \"rev-parse\", \"--show-toplevel\"],\n80             stderr=subprocess.DEVNULL,\n81             text=True,\n82         ).strip()\n83         if root:\n",
+      "col_offset": 15,
+      "end_col_offset": 9,
+      "filename": ".\\src\\hummbl_clp\\core\\state_manager.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Starting a process with a partial executable path",
+      "line_number": 78,
+      "line_range": [
+        78,
+        79,
+        80,
+        81,
+        82
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b607_start_process_with_partial_path.html",
+      "test_id": "B607",
+      "test_name": "start_process_with_partial_path"
+    },
+    {
+      "code": "77 \n78         root = subprocess.check_output(\n79             [\"git\", \"rev-parse\", \"--show-toplevel\"],\n80             stderr=subprocess.DEVNULL,\n81             text=True,\n82         ).strip()\n83         if root:\n",
+      "col_offset": 15,
+      "end_col_offset": 9,
+      "filename": ".\\src\\hummbl_clp\\core\\state_manager.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "subprocess call - check for execution of untrusted input.",
+      "line_number": 78,
+      "line_range": [
+        78,
+        79,
+        80,
+        81,
+        82
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b603_subprocess_without_shell_equals_true.html",
+      "test_id": "B603",
+      "test_name": "subprocess_without_shell_equals_true"
+    },
+    {
+      "code": "126     try:\n127         import subprocess\n128         root = subprocess.check_output(\n",
+      "col_offset": 8,
+      "end_col_offset": 25,
+      "filename": ".\\src\\hummbl_clp\\core\\working_memory.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Consider possible security implications associated with the subprocess module.",
+      "line_number": 127,
+      "line_range": [
+        127
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/blacklists/blacklist_imports.html#b404-import-subprocess",
+      "test_id": "B404",
+      "test_name": "blacklist"
+    },
+    {
+      "code": "127         import subprocess\n128         root = subprocess.check_output(\n129             [\"git\", \"rev-parse\", \"--show-toplevel\"],\n130             stderr=subprocess.DEVNULL,\n131             text=True,\n132         ).strip()\n133         if root:\n",
+      "col_offset": 15,
+      "end_col_offset": 9,
+      "filename": ".\\src\\hummbl_clp\\core\\working_memory.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Starting a process with a partial executable path",
+      "line_number": 128,
+      "line_range": [
+        128,
+        129,
+        130,
+        131,
+        132
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b607_start_process_with_partial_path.html",
+      "test_id": "B607",
+      "test_name": "start_process_with_partial_path"
+    },
+    {
+      "code": "127         import subprocess\n128         root = subprocess.check_output(\n129             [\"git\", \"rev-parse\", \"--show-toplevel\"],\n130             stderr=subprocess.DEVNULL,\n131             text=True,\n132         ).strip()\n133         if root:\n",
+      "col_offset": 15,
+      "end_col_offset": 9,
+      "filename": ".\\src\\hummbl_clp\\core\\working_memory.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "subprocess call - check for execution of untrusted input.",
+      "line_number": 128,
+      "line_range": [
+        128,
+        129,
+        130,
+        131,
+        132
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b603_subprocess_without_shell_equals_true.html",
+      "test_id": "B603",
+      "test_name": "subprocess_without_shell_equals_true"
+    },
+    {
+      "code": "182 \n183             with urllib.request.urlopen(req, timeout=self.timeout, context=ctx) as resp:\n184                 resp_body = resp.read().decode(\"utf-8\")\n",
+      "col_offset": 17,
+      "end_col_offset": 79,
+      "filename": ".\\src\\hummbl_clp\\extensions\\agenthub_bridge.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 22,
+        "link": "https://cwe.mitre.org/data/definitions/22.html"
+      },
+      "issue_severity": "MEDIUM",
+      "issue_text": "Audit url open for permitted schemes. Allowing use of file:/ or custom schemes is often unexpected.",
+      "line_number": 183,
+      "line_range": [
+        183
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/blacklists/blacklist_calls.html#b310-urllib-urlopen",
+      "test_id": "B310",
+      "test_name": "blacklist"
+    },
+    {
+      "code": "253     try:\n254         import subprocess as sp\n255         root = sp.check_output(\n",
+      "col_offset": 8,
+      "end_col_offset": 31,
+      "filename": ".\\src\\hummbl_clp\\extensions\\agenthub_bridge.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Consider possible security implications associated with the subprocess module.",
+      "line_number": 254,
+      "line_range": [
+        254
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/blacklists/blacklist_imports.html#b404-import-subprocess",
+      "test_id": "B404",
+      "test_name": "blacklist"
+    },
+    {
+      "code": "254         import subprocess as sp\n255         root = sp.check_output(\n256             [\"git\", \"rev-parse\", \"--show-toplevel\"],\n257             stderr=sp.DEVNULL, text=True,\n258         ).strip()\n259         if root:\n",
+      "col_offset": 15,
+      "end_col_offset": 9,
+      "filename": ".\\src\\hummbl_clp\\extensions\\agenthub_bridge.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Starting a process with a partial executable path",
+      "line_number": 255,
+      "line_range": [
+        255,
+        256,
+        257,
+        258
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b607_start_process_with_partial_path.html",
+      "test_id": "B607",
+      "test_name": "start_process_with_partial_path"
+    },
+    {
+      "code": "254         import subprocess as sp\n255         root = sp.check_output(\n256             [\"git\", \"rev-parse\", \"--show-toplevel\"],\n257             stderr=sp.DEVNULL, text=True,\n258         ).strip()\n259         if root:\n",
+      "col_offset": 15,
+      "end_col_offset": 9,
+      "filename": ".\\src\\hummbl_clp\\extensions\\agenthub_bridge.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "subprocess call - check for execution of untrusted input.",
+      "line_number": 255,
+      "line_range": [
+        255,
+        256,
+        257,
+        258
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b603_subprocess_without_shell_equals_true.html",
+      "test_id": "B603",
+      "test_name": "subprocess_without_shell_equals_true"
+    },
+    {
+      "code": "298     try:\n299         import subprocess as sp\n300         root = sp.check_output(\n",
+      "col_offset": 8,
+      "end_col_offset": 31,
+      "filename": ".\\src\\hummbl_clp\\extensions\\agenthub_bridge.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Consider possible security implications associated with the subprocess module.",
+      "line_number": 299,
+      "line_range": [
+        299
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/blacklists/blacklist_imports.html#b404-import-subprocess",
+      "test_id": "B404",
+      "test_name": "blacklist"
+    },
+    {
+      "code": "299         import subprocess as sp\n300         root = sp.check_output(\n301             [\"git\", \"rev-parse\", \"--show-toplevel\"],\n302             stderr=sp.DEVNULL, text=True,\n303         ).strip()\n304         if root:\n",
+      "col_offset": 15,
+      "end_col_offset": 9,
+      "filename": ".\\src\\hummbl_clp\\extensions\\agenthub_bridge.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Starting a process with a partial executable path",
+      "line_number": 300,
+      "line_range": [
+        300,
+        301,
+        302,
+        303
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b607_start_process_with_partial_path.html",
+      "test_id": "B607",
+      "test_name": "start_process_with_partial_path"
+    },
+    {
+      "code": "299         import subprocess as sp\n300         root = sp.check_output(\n301             [\"git\", \"rev-parse\", \"--show-toplevel\"],\n302             stderr=sp.DEVNULL, text=True,\n303         ).strip()\n304         if root:\n",
+      "col_offset": 15,
+      "end_col_offset": 9,
+      "filename": ".\\src\\hummbl_clp\\extensions\\agenthub_bridge.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "subprocess call - check for execution of untrusted input.",
+      "line_number": 300,
+      "line_range": [
+        300,
+        301,
+        302,
+        303
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b603_subprocess_without_shell_equals_true.html",
+      "test_id": "B603",
+      "test_name": "subprocess_without_shell_equals_true"
+    },
+    {
+      "code": "19 import re\n20 import subprocess\n21 import sys\n",
+      "col_offset": 0,
+      "end_col_offset": 17,
+      "filename": ".\\src\\hummbl_clp\\extensions\\autoresearch_bridge.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Consider possible security implications associated with the subprocess module.",
+      "line_number": 20,
+      "line_range": [
+        20
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/blacklists/blacklist_imports.html#b404-import-subprocess",
+      "test_id": "B404",
+      "test_name": "blacklist"
+    },
+    {
+      "code": "38     try:\n39         root = subprocess.check_output(\n40             [\"git\", \"rev-parse\", \"--show-toplevel\"],\n41             stderr=subprocess.DEVNULL, text=True,\n42         ).strip()\n43         if root:\n",
+      "col_offset": 15,
+      "end_col_offset": 9,
+      "filename": ".\\src\\hummbl_clp\\extensions\\autoresearch_bridge.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Starting a process with a partial executable path",
+      "line_number": 39,
+      "line_range": [
+        39,
+        40,
+        41,
+        42
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b607_start_process_with_partial_path.html",
+      "test_id": "B607",
+      "test_name": "start_process_with_partial_path"
+    },
+    {
+      "code": "38     try:\n39         root = subprocess.check_output(\n40             [\"git\", \"rev-parse\", \"--show-toplevel\"],\n41             stderr=subprocess.DEVNULL, text=True,\n42         ).strip()\n43         if root:\n",
+      "col_offset": 15,
+      "end_col_offset": 9,
+      "filename": ".\\src\\hummbl_clp\\extensions\\autoresearch_bridge.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "subprocess call - check for execution of untrusted input.",
+      "line_number": 39,
+      "line_range": [
+        39,
+        40,
+        41,
+        42
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b603_subprocess_without_shell_equals_true.html",
+      "test_id": "B603",
+      "test_name": "subprocess_without_shell_equals_true"
+    },
+    {
+      "code": "57         try:\n58             result = subprocess.run(\n59                 [\"git\", \"pull\", \"--ff-only\"],\n60                 cwd=str(repo_dir),\n61                 capture_output=True, text=True, timeout=30,\n62             )\n63             if result.returncode != 0:\n",
+      "col_offset": 21,
+      "end_col_offset": 13,
+      "filename": ".\\src\\hummbl_clp\\extensions\\autoresearch_bridge.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Starting a process with a partial executable path",
+      "line_number": 58,
+      "line_range": [
+        58,
+        59,
+        60,
+        61,
+        62
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b607_start_process_with_partial_path.html",
+      "test_id": "B607",
+      "test_name": "start_process_with_partial_path"
+    },
+    {
+      "code": "57         try:\n58             result = subprocess.run(\n59                 [\"git\", \"pull\", \"--ff-only\"],\n60                 cwd=str(repo_dir),\n61                 capture_output=True, text=True, timeout=30,\n62             )\n63             if result.returncode != 0:\n",
+      "col_offset": 21,
+      "end_col_offset": 13,
+      "filename": ".\\src\\hummbl_clp\\extensions\\autoresearch_bridge.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "subprocess call - check for execution of untrusted input.",
+      "line_number": 58,
+      "line_range": [
+        58,
+        59,
+        60,
+        61,
+        62
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b603_subprocess_without_shell_equals_true.html",
+      "test_id": "B603",
+      "test_name": "subprocess_without_shell_equals_true"
+    },
+    {
+      "code": "72         try:\n73             result = subprocess.run(\n74                 [\"git\", \"clone\", \"--depth=1\", repo_url, str(repo_dir)],\n75                 capture_output=True, text=True, timeout=60,\n76             )\n77             if result.returncode != 0:\n",
+      "col_offset": 21,
+      "end_col_offset": 13,
+      "filename": ".\\src\\hummbl_clp\\extensions\\autoresearch_bridge.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Starting a process with a partial executable path",
+      "line_number": 73,
+      "line_range": [
+        73,
+        74,
+        75,
+        76
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b607_start_process_with_partial_path.html",
+      "test_id": "B607",
+      "test_name": "start_process_with_partial_path"
+    },
+    {
+      "code": "72         try:\n73             result = subprocess.run(\n74                 [\"git\", \"clone\", \"--depth=1\", repo_url, str(repo_dir)],\n75                 capture_output=True, text=True, timeout=60,\n76             )\n77             if result.returncode != 0:\n",
+      "col_offset": 21,
+      "end_col_offset": 13,
+      "filename": ".\\src\\hummbl_clp\\extensions\\autoresearch_bridge.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "subprocess call - check for execution of untrusted input.",
+      "line_number": 73,
+      "line_range": [
+        73,
+        74,
+        75,
+        76
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b603_subprocess_without_shell_equals_true.html",
+      "test_id": "B603",
+      "test_name": "subprocess_without_shell_equals_true"
+    },
+    {
+      "code": "318         conn.close()\n319     except Exception:\n320         pass\n321 \n",
+      "col_offset": 4,
+      "end_col_offset": 12,
+      "filename": ".\\src\\hummbl_clp\\extensions\\autoresearch_bridge.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Try, Except, Pass detected.",
+      "line_number": 319,
+      "line_range": [
+        319,
+        320
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b110_try_except_pass.html",
+      "test_id": "B110",
+      "test_name": "try_except_pass"
+    },
+    {
+      "code": "106     try:\n107         import subprocess\n108 \n",
+      "col_offset": 8,
+      "end_col_offset": 25,
+      "filename": ".\\src\\hummbl_clp\\extensions\\boot_context.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Consider possible security implications associated with the subprocess module.",
+      "line_number": 107,
+      "line_range": [
+        107
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/blacklists/blacklist_imports.html#b404-import-subprocess",
+      "test_id": "B404",
+      "test_name": "blacklist"
+    },
+    {
+      "code": "108 \n109         root = subprocess.check_output(\n110             [\"git\", \"rev-parse\", \"--show-toplevel\"],\n111             stderr=subprocess.DEVNULL,\n112             text=True,\n113         ).strip()\n114         if root:\n",
+      "col_offset": 15,
+      "end_col_offset": 9,
+      "filename": ".\\src\\hummbl_clp\\extensions\\boot_context.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Starting a process with a partial executable path",
+      "line_number": 109,
+      "line_range": [
+        109,
+        110,
+        111,
+        112,
+        113
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b607_start_process_with_partial_path.html",
+      "test_id": "B607",
+      "test_name": "start_process_with_partial_path"
+    },
+    {
+      "code": "108 \n109         root = subprocess.check_output(\n110             [\"git\", \"rev-parse\", \"--show-toplevel\"],\n111             stderr=subprocess.DEVNULL,\n112             text=True,\n113         ).strip()\n114         if root:\n",
+      "col_offset": 15,
+      "end_col_offset": 9,
+      "filename": ".\\src\\hummbl_clp\\extensions\\boot_context.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "subprocess call - check for execution of untrusted input.",
+      "line_number": 109,
+      "line_range": [
+        109,
+        110,
+        111,
+        112,
+        113
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b603_subprocess_without_shell_equals_true.html",
+      "test_id": "B603",
+      "test_name": "subprocess_without_shell_equals_true"
+    },
+    {
+      "code": "73     try:\n74         with urlopen(req, timeout=timeout_s) as resp:\n75             body = json.loads(resp.read().decode(\"utf-8\"))\n",
+      "col_offset": 13,
+      "end_col_offset": 44,
+      "filename": ".\\src\\hummbl_clp\\extensions\\consolidator.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 22,
+        "link": "https://cwe.mitre.org/data/definitions/22.html"
+      },
+      "issue_severity": "MEDIUM",
+      "issue_text": "Audit url open for permitted schemes. Allowing use of file:/ or custom schemes is often unexpected.",
+      "line_number": 74,
+      "line_range": [
+        74
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/blacklists/blacklist_calls.html#b310-urllib-urlopen",
+      "test_id": "B310",
+      "test_name": "blacklist"
+    },
+    {
+      "code": "66     try:\n67         import subprocess\n68         root = subprocess.check_output(\n",
+      "col_offset": 8,
+      "end_col_offset": 25,
+      "filename": ".\\src\\hummbl_clp\\extensions\\feedback_tracker.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Consider possible security implications associated with the subprocess module.",
+      "line_number": 67,
+      "line_range": [
+        67
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/blacklists/blacklist_imports.html#b404-import-subprocess",
+      "test_id": "B404",
+      "test_name": "blacklist"
+    },
+    {
+      "code": "67         import subprocess\n68         root = subprocess.check_output(\n69             [\"git\", \"rev-parse\", \"--show-toplevel\"],\n70             stderr=subprocess.DEVNULL, text=True,\n71         ).strip()\n72         if root:\n",
+      "col_offset": 15,
+      "end_col_offset": 9,
+      "filename": ".\\src\\hummbl_clp\\extensions\\feedback_tracker.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Starting a process with a partial executable path",
+      "line_number": 68,
+      "line_range": [
+        68,
+        69,
+        70,
+        71
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b607_start_process_with_partial_path.html",
+      "test_id": "B607",
+      "test_name": "start_process_with_partial_path"
+    },
+    {
+      "code": "67         import subprocess\n68         root = subprocess.check_output(\n69             [\"git\", \"rev-parse\", \"--show-toplevel\"],\n70             stderr=subprocess.DEVNULL, text=True,\n71         ).strip()\n72         if root:\n",
+      "col_offset": 15,
+      "end_col_offset": 9,
+      "filename": ".\\src\\hummbl_clp\\extensions\\feedback_tracker.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "subprocess call - check for execution of untrusted input.",
+      "line_number": 68,
+      "line_range": [
+        68,
+        69,
+        70,
+        71
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b603_subprocess_without_shell_equals_true.html",
+      "test_id": "B603",
+      "test_name": "subprocess_without_shell_equals_true"
+    },
+    {
+      "code": "16 import re\n17 import subprocess\n18 from datetime import datetime, timezone\n",
+      "col_offset": 0,
+      "end_col_offset": 17,
+      "filename": ".\\src\\hummbl_clp\\extensions\\migration.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Consider possible security implications associated with the subprocess module.",
+      "line_number": 17,
+      "line_range": [
+        17
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/blacklists/blacklist_imports.html#b404-import-subprocess",
+      "test_id": "B404",
+      "test_name": "blacklist"
+    },
+    {
+      "code": "41     try:\n42         root = subprocess.check_output(\n43             [\"git\", \"rev-parse\", \"--show-toplevel\"],\n44             stderr=subprocess.DEVNULL,\n45             text=True,\n46         ).strip()\n47         return Path(root) if root else None\n",
+      "col_offset": 15,
+      "end_col_offset": 9,
+      "filename": ".\\src\\hummbl_clp\\extensions\\migration.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Starting a process with a partial executable path",
+      "line_number": 42,
+      "line_range": [
+        42,
+        43,
+        44,
+        45,
+        46
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b607_start_process_with_partial_path.html",
+      "test_id": "B607",
+      "test_name": "start_process_with_partial_path"
+    },
+    {
+      "code": "41     try:\n42         root = subprocess.check_output(\n43             [\"git\", \"rev-parse\", \"--show-toplevel\"],\n44             stderr=subprocess.DEVNULL,\n45             text=True,\n46         ).strip()\n47         return Path(root) if root else None\n",
+      "col_offset": 15,
+      "end_col_offset": 9,
+      "filename": ".\\src\\hummbl_clp\\extensions\\migration.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "subprocess call - check for execution of untrusted input.",
+      "line_number": 42,
+      "line_range": [
+        42,
+        43,
+        44,
+        45,
+        46
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b603_subprocess_without_shell_equals_true.html",
+      "test_id": "B603",
+      "test_name": "subprocess_without_shell_equals_true"
+    },
+    {
+      "code": "367     try:\n368         output = subprocess.check_output(\n369             cmd,\n370             stderr=subprocess.DEVNULL,\n371             text=True,\n372         )\n373     except (subprocess.CalledProcessError, FileNotFoundError):\n",
+      "col_offset": 17,
+      "end_col_offset": 9,
+      "filename": ".\\src\\hummbl_clp\\extensions\\migration.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "subprocess call - check for execution of untrusted input.",
+      "line_number": 368,
+      "line_range": [
+        368,
+        369,
+        370,
+        371,
+        372
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b603_subprocess_without_shell_equals_true.html",
+      "test_id": "B603",
+      "test_name": "subprocess_without_shell_equals_true"
+    },
+    {
+      "code": "19 import os\n20 import subprocess\n21 import sys\n",
+      "col_offset": 0,
+      "end_col_offset": 17,
+      "filename": ".\\src\\hummbl_clp\\extensions\\research_processor.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Consider possible security implications associated with the subprocess module.",
+      "line_number": 20,
+      "line_range": [
+        20
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/blacklists/blacklist_imports.html#b404-import-subprocess",
+      "test_id": "B404",
+      "test_name": "blacklist"
+    },
+    {
+      "code": "46     try:\n47         root = subprocess.check_output(\n48             [\"git\", \"rev-parse\", \"--show-toplevel\"],\n49             stderr=subprocess.DEVNULL, text=True,\n50         ).strip()\n51         if root:\n",
+      "col_offset": 15,
+      "end_col_offset": 9,
+      "filename": ".\\src\\hummbl_clp\\extensions\\research_processor.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Starting a process with a partial executable path",
+      "line_number": 47,
+      "line_range": [
+        47,
+        48,
+        49,
+        50
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b607_start_process_with_partial_path.html",
+      "test_id": "B607",
+      "test_name": "start_process_with_partial_path"
+    },
+    {
+      "code": "46     try:\n47         root = subprocess.check_output(\n48             [\"git\", \"rev-parse\", \"--show-toplevel\"],\n49             stderr=subprocess.DEVNULL, text=True,\n50         ).strip()\n51         if root:\n",
+      "col_offset": 15,
+      "end_col_offset": 9,
+      "filename": ".\\src\\hummbl_clp\\extensions\\research_processor.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "subprocess call - check for execution of untrusted input.",
+      "line_number": 47,
+      "line_range": [
+        47,
+        48,
+        49,
+        50
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b603_subprocess_without_shell_equals_true.html",
+      "test_id": "B603",
+      "test_name": "subprocess_without_shell_equals_true"
+    },
+    {
+      "code": "217     try:\n218         with urlopen(req, timeout=timeout_s) as resp:\n219             body = json.loads(resp.read().decode(\"utf-8\"))\n",
+      "col_offset": 13,
+      "end_col_offset": 44,
+      "filename": ".\\src\\hummbl_clp\\extensions\\research_processor.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 22,
+        "link": "https://cwe.mitre.org/data/definitions/22.html"
+      },
+      "issue_severity": "MEDIUM",
+      "issue_text": "Audit url open for permitted schemes. Allowing use of file:/ or custom schemes is often unexpected.",
+      "line_number": 218,
+      "line_range": [
+        218
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/blacklists/blacklist_calls.html#b310-urllib-urlopen",
+      "test_id": "B310",
+      "test_name": "blacklist"
+    },
+    {
+      "code": "38     try:\n39         import subprocess\n40         root = subprocess.check_output(\n",
+      "col_offset": 8,
+      "end_col_offset": 25,
+      "filename": ".\\src\\hummbl_clp\\extensions\\retriever.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Consider possible security implications associated with the subprocess module.",
+      "line_number": 39,
+      "line_range": [
+        39
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/blacklists/blacklist_imports.html#b404-import-subprocess",
+      "test_id": "B404",
+      "test_name": "blacklist"
+    },
+    {
+      "code": "39         import subprocess\n40         root = subprocess.check_output(\n41             [\"git\", \"rev-parse\", \"--show-toplevel\"],\n42             stderr=subprocess.DEVNULL, text=True,\n43         ).strip()\n44         if root:\n",
+      "col_offset": 15,
+      "end_col_offset": 9,
+      "filename": ".\\src\\hummbl_clp\\extensions\\retriever.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Starting a process with a partial executable path",
+      "line_number": 40,
+      "line_range": [
+        40,
+        41,
+        42,
+        43
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b607_start_process_with_partial_path.html",
+      "test_id": "B607",
+      "test_name": "start_process_with_partial_path"
+    },
+    {
+      "code": "39         import subprocess\n40         root = subprocess.check_output(\n41             [\"git\", \"rev-parse\", \"--show-toplevel\"],\n42             stderr=subprocess.DEVNULL, text=True,\n43         ).strip()\n44         if root:\n",
+      "col_offset": 15,
+      "end_col_offset": 9,
+      "filename": ".\\src\\hummbl_clp\\extensions\\retriever.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "subprocess call - check for execution of untrusted input.",
+      "line_number": 40,
+      "line_range": [
+        40,
+        41,
+        42,
+        43
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b603_subprocess_without_shell_equals_true.html",
+      "test_id": "B603",
+      "test_name": "subprocess_without_shell_equals_true"
+    },
+    {
+      "code": "27     try:\n28         import subprocess\n29 \n",
+      "col_offset": 8,
+      "end_col_offset": 25,
+      "filename": ".\\src\\hummbl_clp\\extensions\\startup_context.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Consider possible security implications associated with the subprocess module.",
+      "line_number": 28,
+      "line_range": [
+        28
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/blacklists/blacklist_imports.html#b404-import-subprocess",
+      "test_id": "B404",
+      "test_name": "blacklist"
+    },
+    {
+      "code": "29 \n30         root = subprocess.check_output(\n31             [\"git\", \"rev-parse\", \"--show-toplevel\"],\n32             stderr=subprocess.DEVNULL,\n33             text=True,\n34         ).strip()\n35         if root:\n",
+      "col_offset": 15,
+      "end_col_offset": 9,
+      "filename": ".\\src\\hummbl_clp\\extensions\\startup_context.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Starting a process with a partial executable path",
+      "line_number": 30,
+      "line_range": [
+        30,
+        31,
+        32,
+        33,
+        34
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b607_start_process_with_partial_path.html",
+      "test_id": "B607",
+      "test_name": "start_process_with_partial_path"
+    },
+    {
+      "code": "29 \n30         root = subprocess.check_output(\n31             [\"git\", \"rev-parse\", \"--show-toplevel\"],\n32             stderr=subprocess.DEVNULL,\n33             text=True,\n34         ).strip()\n35         if root:\n",
+      "col_offset": 15,
+      "end_col_offset": 9,
+      "filename": ".\\src\\hummbl_clp\\extensions\\startup_context.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "subprocess call - check for execution of untrusted input.",
+      "line_number": 30,
+      "line_range": [
+        30,
+        31,
+        32,
+        33,
+        34
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b603_subprocess_without_shell_equals_true.html",
+      "test_id": "B603",
+      "test_name": "subprocess_without_shell_equals_true"
+    },
+    {
+      "code": "55     try:\n56         import subprocess\n57 \n",
+      "col_offset": 8,
+      "end_col_offset": 25,
+      "filename": ".\\src\\hummbl_clp\\extensions\\startup_context.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Consider possible security implications associated with the subprocess module.",
+      "line_number": 56,
+      "line_range": [
+        56
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/blacklists/blacklist_imports.html#b404-import-subprocess",
+      "test_id": "B404",
+      "test_name": "blacklist"
+    },
+    {
+      "code": "57 \n58         root = subprocess.check_output(\n59             [\"git\", \"rev-parse\", \"--show-toplevel\"],\n60             stderr=subprocess.DEVNULL,\n61             text=True,\n62         ).strip()\n63         if root:\n",
+      "col_offset": 15,
+      "end_col_offset": 9,
+      "filename": ".\\src\\hummbl_clp\\extensions\\startup_context.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Starting a process with a partial executable path",
+      "line_number": 58,
+      "line_range": [
+        58,
+        59,
+        60,
+        61,
+        62
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b607_start_process_with_partial_path.html",
+      "test_id": "B607",
+      "test_name": "start_process_with_partial_path"
+    },
+    {
+      "code": "57 \n58         root = subprocess.check_output(\n59             [\"git\", \"rev-parse\", \"--show-toplevel\"],\n60             stderr=subprocess.DEVNULL,\n61             text=True,\n62         ).strip()\n63         if root:\n",
+      "col_offset": 15,
+      "end_col_offset": 9,
+      "filename": ".\\src\\hummbl_clp\\extensions\\startup_context.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "subprocess call - check for execution of untrusted input.",
+      "line_number": 58,
+      "line_range": [
+        58,
+        59,
+        60,
+        61,
+        62
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b603_subprocess_without_shell_equals_true.html",
+      "test_id": "B603",
+      "test_name": "subprocess_without_shell_equals_true"
+    },
+    {
+      "code": "37 TEST_SECRET_STR = \"a\" * 32\n38 SHORT_SECRET_STR = \"short\"\n39 \n",
+      "col_offset": 19,
+      "end_col_offset": 26,
+      "filename": ".\\tests\\test_ledger_signing.py",
+      "issue_confidence": "MEDIUM",
+      "issue_cwe": {
+        "id": 259,
+        "link": "https://cwe.mitre.org/data/definitions/259.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Possible hardcoded password: 'short'",
+      "line_number": 38,
+      "line_range": [
+        38
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b105_hardcoded_password_string.html",
+      "test_id": "B105",
+      "test_name": "hardcoded_password_string"
+    },
+    {
+      "code": "82         result = post_entry(entry, ledger_path=tmp_path / \"ledger.jsonl\")\n83         assert result.signature is None  # unsigned but accepted\n84 \n",
+      "col_offset": 8,
+      "end_col_offset": 39,
+      "filename": ".\\tests\\test_ledger_signing.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 83,
+      "line_range": [
+        83
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "86         monkeypatch.delenv(\"CLP_ALLOW_UNSIGNED\", raising=False)\n87         assert _allow_unsigned() is False\n88 \n",
+      "col_offset": 8,
+      "end_col_offset": 41,
+      "filename": ".\\tests\\test_ledger_signing.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 87,
+      "line_range": [
+        87
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "90         monkeypatch.setenv(\"CLP_ALLOW_UNSIGNED\", \"1\")\n91         assert _allow_unsigned() is True\n92 \n",
+      "col_offset": 8,
+      "end_col_offset": 40,
+      "filename": ".\\tests\\test_ledger_signing.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 91,
+      "line_range": [
+        91
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "95             monkeypatch.setenv(\"CLP_ALLOW_UNSIGNED\", val)\n96             assert _allow_unsigned() is True, f\"CLP_ALLOW_UNSIGNED={val!r} should bypass\"\n97 \n",
+      "col_offset": 12,
+      "end_col_offset": 89,
+      "filename": ".\\tests\\test_ledger_signing.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 96,
+      "line_range": [
+        96
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "107         result = post_entry(entry, ledger_path=tmp_path / \"ledger.jsonl\")\n108         assert result.signature is not None\n109         assert len(result.signature) == 64  # SHA-256 hex\n",
+      "col_offset": 8,
+      "end_col_offset": 43,
+      "filename": ".\\tests\\test_ledger_signing.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 108,
+      "line_range": [
+        108
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "108         assert result.signature is not None\n109         assert len(result.signature) == 64  # SHA-256 hex\n110 \n",
+      "col_offset": 8,
+      "end_col_offset": 42,
+      "filename": ".\\tests\\test_ledger_signing.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 109,
+      "line_range": [
+        109
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "118         )\n119         assert result.signature is not None\n120         assert len(result.signature) == 64\n",
+      "col_offset": 8,
+      "end_col_offset": 43,
+      "filename": ".\\tests\\test_ledger_signing.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 119,
+      "line_range": [
+        119
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "119         assert result.signature is not None\n120         assert len(result.signature) == 64\n121 \n",
+      "col_offset": 8,
+      "end_col_offset": 42,
+      "filename": ".\\tests\\test_ledger_signing.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 120,
+      "line_range": [
+        120
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "127         result = post_entry(entry, ledger_path=tmp_path / \"ledger.jsonl\")\n128         assert verify_entry_signature(result, TEST_SECRET) is True\n129 \n",
+      "col_offset": 8,
+      "end_col_offset": 66,
+      "filename": ".\\tests\\test_ledger_signing.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 128,
+      "line_range": [
+        128
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "135         monkeypatch.setenv(\"BUS_SIGNING_SECRET\", SHORT_SECRET_STR)\n136         assert _resolve_signing_secret() is None\n137 \n",
+      "col_offset": 8,
+      "end_col_offset": 48,
+      "filename": ".\\tests\\test_ledger_signing.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 136,
+      "line_range": [
+        136
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "154         signed = LedgerEntry.from_dict({**entry.to_dict(), \"signature\": sig})\n155         assert verify_entry_signature(signed, TEST_SECRET) is True\n156 \n",
+      "col_offset": 8,
+      "end_col_offset": 66,
+      "filename": ".\\tests\\test_ledger_signing.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 155,
+      "line_range": [
+        155
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "160         signed = LedgerEntry.from_dict({**entry.to_dict(), \"signature\": wrong_sig})\n161         assert verify_entry_signature(signed, TEST_SECRET) is False\n162 \n",
+      "col_offset": 8,
+      "end_col_offset": 67,
+      "filename": ".\\tests\\test_ledger_signing.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 161,
+      "line_range": [
+        161
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "164         entry = _make_entry()\n165         assert entry.signature is None\n166         assert verify_entry_signature(entry, TEST_SECRET) is False\n",
+      "col_offset": 8,
+      "end_col_offset": 38,
+      "filename": ".\\tests\\test_ledger_signing.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 165,
+      "line_range": [
+        165
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "165         assert entry.signature is None\n166         assert verify_entry_signature(entry, TEST_SECRET) is False\n167 \n",
+      "col_offset": 8,
+      "end_col_offset": 66,
+      "filename": ".\\tests\\test_ledger_signing.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 166,
+      "line_range": [
+        166
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "173         # Different secret should not verify\n174         assert verify_entry_signature(signed, b\"b\" * 32) is False\n175 \n",
+      "col_offset": 8,
+      "end_col_offset": 65,
+      "filename": ".\\tests\\test_ledger_signing.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 174,
+      "line_range": [
+        174
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "185         text = src.read_text(encoding=\"utf-8\")\n186         assert \"hmac.compare_digest\" in text, (\n187             \"ledger_writer must use hmac.compare_digest for verification\"\n188         )\n189 \n",
+      "col_offset": 8,
+      "end_col_offset": 9,
+      "filename": ".\\tests\\test_ledger_signing.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 186,
+      "line_range": [
+        186,
+        187,
+        188
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "198         monkeypatch.setenv(\"BUS_SIGNING_SECRET\", bus)\n199         assert _resolve_federation_secret() == fed.encode(\"utf-8\")\n200 \n",
+      "col_offset": 8,
+      "end_col_offset": 66,
+      "filename": ".\\tests\\test_ledger_signing.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 199,
+      "line_range": [
+        199
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "204         monkeypatch.setenv(\"BUS_SIGNING_SECRET\", bus)\n205         assert _resolve_federation_secret() == bus.encode(\"utf-8\")\n206 \n",
+      "col_offset": 8,
+      "end_col_offset": 66,
+      "filename": ".\\tests\\test_ledger_signing.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 205,
+      "line_range": [
+        205
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "209         monkeypatch.delenv(\"BUS_SIGNING_SECRET\", raising=False)\n210         assert _resolve_federation_secret() is None\n211 \n",
+      "col_offset": 8,
+      "end_col_offset": 51,
+      "filename": ".\\tests\\test_ledger_signing.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 210,
+      "line_range": [
+        210
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "214         monkeypatch.delenv(\"BUS_SIGNING_SECRET\", raising=False)\n215         assert _resolve_federation_secret() is None\n216 \n",
+      "col_offset": 8,
+      "end_col_offset": 51,
+      "filename": ".\\tests\\test_ledger_signing.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 215,
+      "line_range": [
+        215
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "239         )\n240         assert valid_count == 0\n241         assert len(errors) == 1\n",
+      "col_offset": 8,
+      "end_col_offset": 31,
+      "filename": ".\\tests\\test_ledger_signing.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 240,
+      "line_range": [
+        240
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "240         assert valid_count == 0\n241         assert len(errors) == 1\n242         assert \"unsigned\" in errors[0].lower()\n",
+      "col_offset": 8,
+      "end_col_offset": 31,
+      "filename": ".\\tests\\test_ledger_signing.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 241,
+      "line_range": [
+        241
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "241         assert len(errors) == 1\n242         assert \"unsigned\" in errors[0].lower()\n243 \n",
+      "col_offset": 8,
+      "end_col_offset": 46,
+      "filename": ".\\tests\\test_ledger_signing.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 242,
+      "line_range": [
+        242
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "258         )\n259         assert valid_count == 1\n260         assert errors == []\n",
+      "col_offset": 8,
+      "end_col_offset": 31,
+      "filename": ".\\tests\\test_ledger_signing.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 259,
+      "line_range": [
+        259
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "259         assert valid_count == 1\n260         assert errors == []\n261 \n",
+      "col_offset": 8,
+      "end_col_offset": 27,
+      "filename": ".\\tests\\test_ledger_signing.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 260,
+      "line_range": [
+        260
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "276         )\n277         assert valid_count == 1\n278         assert errors == []\n",
+      "col_offset": 8,
+      "end_col_offset": 31,
+      "filename": ".\\tests\\test_ledger_signing.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 277,
+      "line_range": [
+        277
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "277         assert valid_count == 1\n278         assert errors == []\n279 \n",
+      "col_offset": 8,
+      "end_col_offset": 27,
+      "filename": ".\\tests\\test_ledger_signing.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 278,
+      "line_range": [
+        278
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "298         forged = LedgerEntry.from_dict({**entry.to_dict(), \"signature\": forged_sig})\n299         assert forged.signature == forged_sig  # sanity: forged value present\n300 \n",
+      "col_offset": 8,
+      "end_col_offset": 45,
+      "filename": ".\\tests\\test_ledger_signing.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 299,
+      "line_range": [
+        299
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "303         # forged value.\n304         assert result.signature != forged_sig\n305         assert result.signature is not None\n",
+      "col_offset": 8,
+      "end_col_offset": 45,
+      "filename": ".\\tests\\test_ledger_signing.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 304,
+      "line_range": [
+        304
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "304         assert result.signature != forged_sig\n305         assert result.signature is not None\n306         assert len(result.signature) == 64\n",
+      "col_offset": 8,
+      "end_col_offset": 43,
+      "filename": ".\\tests\\test_ledger_signing.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 305,
+      "line_range": [
+        305
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "305         assert result.signature is not None\n306         assert len(result.signature) == 64\n307         assert verify_entry_signature(result, TEST_SECRET) is True\n",
+      "col_offset": 8,
+      "end_col_offset": 42,
+      "filename": ".\\tests\\test_ledger_signing.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 306,
+      "line_range": [
+        306
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "306         assert len(result.signature) == 64\n307         assert verify_entry_signature(result, TEST_SECRET) is True\n308 \n",
+      "col_offset": 8,
+      "end_col_offset": 66,
+      "filename": ".\\tests\\test_ledger_signing.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 307,
+      "line_range": [
+        307
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "321         # post_entry re-signs; the result must verify against the local secret.\n322         assert result.signature != forged_sig\n323         assert verify_entry_signature(result, TEST_SECRET) is True\n",
+      "col_offset": 8,
+      "end_col_offset": 45,
+      "filename": ".\\tests\\test_ledger_signing.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 322,
+      "line_range": [
+        322
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "322         assert result.signature != forged_sig\n323         assert verify_entry_signature(result, TEST_SECRET) is True\n324 \n",
+      "col_offset": 8,
+      "end_col_offset": 66,
+      "filename": ".\\tests\\test_ledger_signing.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 323,
+      "line_range": [
+        323
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "38 TEST_SECRET_STR = \"a\" * 32\n39 TEST_TOKEN = \"test-token-abc123def456\"\n40 \n",
+      "col_offset": 13,
+      "end_col_offset": 38,
+      "filename": ".\\tests\\test_server_security.py",
+      "issue_confidence": "MEDIUM",
+      "issue_cwe": {
+        "id": 259,
+        "link": "https://cwe.mitre.org/data/definitions/259.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Possible hardcoded password: 'test-token-abc123def456'",
+      "line_number": 39,
+      "line_range": [
+        39
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b105_hardcoded_password_string.html",
+      "test_id": "B105",
+      "test_name": "hardcoded_password_string"
+    },
+    {
+      "code": "151         handler.do_GET()\n152         assert handler._response_code == 401\n153 \n",
+      "col_offset": 8,
+      "end_col_offset": 44,
+      "filename": ".\\tests\\test_server_security.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 152,
+      "line_range": [
+        152
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "165         handler.do_POST()\n166         assert handler._response_code == 401\n167 \n",
+      "col_offset": 8,
+      "end_col_offset": 44,
+      "filename": ".\\tests\\test_server_security.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 166,
+      "line_range": [
+        166
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "174         handler.do_GET()\n175         assert handler._response_code == 200\n176 \n",
+      "col_offset": 8,
+      "end_col_offset": 44,
+      "filename": ".\\tests\\test_server_security.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 175,
+      "line_range": [
+        175
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "190         handler.do_GET()\n191         assert handler._response_code == 200\n192 \n",
+      "col_offset": 8,
+      "end_col_offset": 44,
+      "filename": ".\\tests\\test_server_security.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 191,
+      "line_range": [
+        191
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "202         handler.do_GET()\n203         assert handler._response_code == 401\n204 \n",
+      "col_offset": 8,
+      "end_col_offset": 44,
+      "filename": ".\\tests\\test_server_security.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 203,
+      "line_range": [
+        203
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "213         handler.do_GET()\n214         assert handler._response_code == 401\n215 \n",
+      "col_offset": 8,
+      "end_col_offset": 44,
+      "filename": ".\\tests\\test_server_security.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 214,
+      "line_range": [
+        214
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "225         handler.do_GET()\n226         assert handler._response_code == 401\n227 \n",
+      "col_offset": 8,
+      "end_col_offset": 44,
+      "filename": ".\\tests\\test_server_security.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 226,
+      "line_range": [
+        226
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "237         text = src.read_text(encoding=\"utf-8\")\n238         assert \"hmac.compare_digest\" in text, (\n239             \"server must use hmac.compare_digest for auth\"\n240         )\n241 \n",
+      "col_offset": 8,
+      "end_col_offset": 9,
+      "filename": ".\\tests\\test_server_security.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 238,
+      "line_range": [
+        238,
+        239,
+        240
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "251         handler.do_GET()\n252         assert handler._response_code == 200\n253 \n",
+      "col_offset": 8,
+      "end_col_offset": 44,
+      "filename": ".\\tests\\test_server_security.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 252,
+      "line_range": [
+        252
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "255         monkeypatch.setenv(\"CLP_ALLOW_NO_AUTH\", \"1\")\n256         assert _require_auth() is False\n257 \n",
+      "col_offset": 8,
+      "end_col_offset": 39,
+      "filename": ".\\tests\\test_server_security.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 256,
+      "line_range": [
+        256
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "259         monkeypatch.delenv(\"CLP_ALLOW_NO_AUTH\", raising=False)\n260         assert _require_auth() is True\n261 \n",
+      "col_offset": 8,
+      "end_col_offset": 38,
+      "filename": ".\\tests\\test_server_security.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 260,
+      "line_range": [
+        260
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "264             monkeypatch.setenv(\"CLP_ALLOW_NO_AUTH\", val)\n265             assert _require_auth() is False, (\n266                 f\"CLP_ALLOW_NO_AUTH={val!r} should bypass\"\n267             )\n268 \n",
+      "col_offset": 12,
+      "end_col_offset": 13,
+      "filename": ".\\tests\\test_server_security.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 265,
+      "line_range": [
+        265,
+        266,
+        267
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "290                 result = state.ingest([entry_dict])\n291         assert result[\"ingested\"] == 1\n292         assert result[\"errors\"] == []\n",
+      "col_offset": 8,
+      "end_col_offset": 38,
+      "filename": ".\\tests\\test_server_security.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 291,
+      "line_range": [
+        291
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "291         assert result[\"ingested\"] == 1\n292         assert result[\"errors\"] == []\n293         mock_post.assert_called_once()\n",
+      "col_offset": 8,
+      "end_col_offset": 37,
+      "filename": ".\\tests\\test_server_security.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 292,
+      "line_range": [
+        292
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "307                 result = state.ingest([entry_dict])\n308         assert result[\"ingested\"] == 0\n309         assert len(result[\"errors\"]) == 1\n",
+      "col_offset": 8,
+      "end_col_offset": 38,
+      "filename": ".\\tests\\test_server_security.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 308,
+      "line_range": [
+        308
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "308         assert result[\"ingested\"] == 0\n309         assert len(result[\"errors\"]) == 1\n310         assert \"unsigned\" in result[\"errors\"][0].lower()\n",
+      "col_offset": 8,
+      "end_col_offset": 41,
+      "filename": ".\\tests\\test_server_security.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 309,
+      "line_range": [
+        309
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "309         assert len(result[\"errors\"]) == 1\n310         assert \"unsigned\" in result[\"errors\"][0].lower()\n311         mock_post.assert_not_called()\n",
+      "col_offset": 8,
+      "end_col_offset": 56,
+      "filename": ".\\tests\\test_server_security.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 310,
+      "line_range": [
+        310
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "325                 result = state.ingest([entry_dict])\n326         assert result[\"ingested\"] == 0\n327         assert len(result[\"errors\"]) == 1\n",
+      "col_offset": 8,
+      "end_col_offset": 38,
+      "filename": ".\\tests\\test_server_security.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 326,
+      "line_range": [
+        326
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "326         assert result[\"ingested\"] == 0\n327         assert len(result[\"errors\"]) == 1\n328         assert \"signature\" in result[\"errors\"][0].lower()\n",
+      "col_offset": 8,
+      "end_col_offset": 41,
+      "filename": ".\\tests\\test_server_security.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 327,
+      "line_range": [
+        327
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "327         assert len(result[\"errors\"]) == 1\n328         assert \"signature\" in result[\"errors\"][0].lower()\n329         mock_post.assert_not_called()\n",
+      "col_offset": 8,
+      "end_col_offset": 57,
+      "filename": ".\\tests\\test_server_security.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 328,
+      "line_range": [
+        328
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "344                 result = state.ingest([entry_dict])\n345         assert result[\"ingested\"] == 0\n346         assert len(result[\"errors\"]) == 1\n",
+      "col_offset": 8,
+      "end_col_offset": 38,
+      "filename": ".\\tests\\test_server_security.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 345,
+      "line_range": [
+        345
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "345         assert result[\"ingested\"] == 0\n346         assert len(result[\"errors\"]) == 1\n347         mock_post.assert_not_called()\n",
+      "col_offset": 8,
+      "end_col_offset": 41,
+      "filename": ".\\tests\\test_server_security.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 346,
+      "line_range": [
+        346
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "361                 result = state.ingest([entry_dict])\n362         assert result[\"ingested\"] == 0\n363         assert len(result[\"errors\"]) == 1\n",
+      "col_offset": 8,
+      "end_col_offset": 38,
+      "filename": ".\\tests\\test_server_security.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 362,
+      "line_range": [
+        362
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "362         assert result[\"ingested\"] == 0\n363         assert len(result[\"errors\"]) == 1\n364         assert \"secret\" in result[\"errors\"][0].lower()\n",
+      "col_offset": 8,
+      "end_col_offset": 41,
+      "filename": ".\\tests\\test_server_security.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 363,
+      "line_range": [
+        363
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "363         assert len(result[\"errors\"]) == 1\n364         assert \"secret\" in result[\"errors\"][0].lower()\n365         mock_post.assert_not_called()\n",
+      "col_offset": 8,
+      "end_col_offset": 54,
+      "filename": ".\\tests\\test_server_security.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 364,
+      "line_range": [
+        364
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "380                 result = state.ingest([entry_dict])\n381         assert result[\"ingested\"] == 1\n382         assert result[\"errors\"] == []\n",
+      "col_offset": 8,
+      "end_col_offset": 38,
+      "filename": ".\\tests\\test_server_security.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 381,
+      "line_range": [
+        381
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "381         assert result[\"ingested\"] == 1\n382         assert result[\"errors\"] == []\n383         mock_post.assert_called_once()\n",
+      "col_offset": 8,
+      "end_col_offset": 37,
+      "filename": ".\\tests\\test_server_security.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 382,
+      "line_range": [
+        382
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "404                 result = state.ingest([entry_data])\n405         assert result[\"ingested\"] == 0\n406         assert len(result[\"errors\"]) == 1\n",
+      "col_offset": 8,
+      "end_col_offset": 38,
+      "filename": ".\\tests\\test_server_security.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 405,
+      "line_range": [
+        405
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "405         assert result[\"ingested\"] == 0\n406         assert len(result[\"errors\"]) == 1\n407         assert \"id\" in result[\"errors\"][0].lower() or \"full\" in result[\"errors\"][0].lower()\n",
+      "col_offset": 8,
+      "end_col_offset": 41,
+      "filename": ".\\tests\\test_server_security.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 406,
+      "line_range": [
+        406
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "406         assert len(result[\"errors\"]) == 1\n407         assert \"id\" in result[\"errors\"][0].lower() or \"full\" in result[\"errors\"][0].lower()\n408         mock_post.assert_not_called()\n",
+      "col_offset": 8,
+      "end_col_offset": 91,
+      "filename": ".\\tests\\test_server_security.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 407,
+      "line_range": [
+        407
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "423                 result = state.ingest([entry_dict])\n424         assert result[\"ingested\"] == 1\n425         assert result[\"errors\"] == []\n",
+      "col_offset": 8,
+      "end_col_offset": 38,
+      "filename": ".\\tests\\test_server_security.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 424,
+      "line_range": [
+        424
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "424         assert result[\"ingested\"] == 1\n425         assert result[\"errors\"] == []\n426         mock_post.assert_called_once()\n",
+      "col_offset": 8,
+      "end_col_offset": 37,
+      "filename": ".\\tests\\test_server_security.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 425,
+      "line_range": [
+        425
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "458             result = state.ingest([entry_dict])\n459         assert result[\"ingested\"] == 1\n460         assert result[\"errors\"] == []\n",
+      "col_offset": 8,
+      "end_col_offset": 38,
+      "filename": ".\\tests\\test_server_security.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 459,
+      "line_range": [
+        459
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "459         assert result[\"ingested\"] == 1\n460         assert result[\"errors\"] == []\n461 \n",
+      "col_offset": 8,
+      "end_col_offset": 37,
+      "filename": ".\\tests\\test_server_security.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 460,
+      "line_range": [
+        460
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "467         )\n468         assert errors == [], f\"integrity errors (stale signature?): {errors}\"\n469         assert valid_count == 1\n",
+      "col_offset": 8,
+      "end_col_offset": 77,
+      "filename": ".\\tests\\test_server_security.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 468,
+      "line_range": [
+        468
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "468         assert errors == [], f\"integrity errors (stale signature?): {errors}\"\n469         assert valid_count == 1\n470 \n",
+      "col_offset": 8,
+      "end_col_offset": 31,
+      "filename": ".\\tests\\test_server_security.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 469,
+      "line_range": [
+        469
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "495                 result = state.ingest([entry_dict])\n496         assert result[\"ingested\"] == 0\n497         assert len(result[\"errors\"]) == 1\n",
+      "col_offset": 8,
+      "end_col_offset": 38,
+      "filename": ".\\tests\\test_server_security.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 496,
+      "line_range": [
+        496
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "496         assert result[\"ingested\"] == 0\n497         assert len(result[\"errors\"]) == 1\n498         # Must not have crashed; error captured gracefully.\n",
+      "col_offset": 8,
+      "end_col_offset": 41,
+      "filename": ".\\tests\\test_server_security.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 497,
+      "line_range": [
+        497
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    },
+    {
+      "code": "498         # Must not have crashed; error captured gracefully.\n499         assert \"signature\" in result[\"errors\"][0].lower() or \"str\" in result[\"errors\"][0].lower()\n500         mock_post.assert_not_called()\n",
+      "col_offset": 8,
+      "end_col_offset": 97,
+      "filename": ".\\tests\\test_server_security.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.",
+      "line_number": 499,
+      "line_range": [
+        499
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html",
+      "test_id": "B101",
+      "test_name": "assert_used"
+    }
+  ]
+}
