@@ -124,7 +124,7 @@ class LedgerEntry:
     links: tuple[str, ...] = ()  # Related entry IDs (max 20, Zettelkasten-style)
 
     def __post_init__(self) -> None:
-        """Validate entry fields."""
+        """Validate and defensively normalize entry fields."""
         if not self.id.startswith("clp-") or len(self.id) != 16:
             raise ValueError(
                 f"Invalid entry ID format: {self.id!r} "
@@ -135,11 +135,21 @@ class LedgerEntry:
                 f"Invalid vendor: {self.vendor!r} "
                 f"(expected one of {sorted(VALID_VENDORS)})"
             )
+        # Defensive normalization of type and scope
+        if isinstance(self.type, str):
+            norm_type = self.type.strip().lower()
+            if norm_type != self.type:
+                object.__setattr__(self, "type", norm_type)
         if self.type not in {e.value for e in LedgerEntryType}:
             raise ValueError(
                 f"Invalid type: {self.type!r} "
                 f"(expected one of {[e.value for e in LedgerEntryType]})"
             )
+
+        if isinstance(self.scope, str):
+            norm_scope = self.scope.strip().lower()
+            if norm_scope != self.scope:
+                object.__setattr__(self, "scope", norm_scope)
         if self.scope not in {e.value for e in LedgerScope}:
             raise ValueError(
                 f"Invalid scope: {self.scope!r} "
@@ -149,12 +159,43 @@ class LedgerEntry:
             raise ValueError(
                 f"Content must be 1-4096 chars, got {len(self.content)}"
             )
-        if not 0.0 <= self.confidence <= 1.0:
-            raise ValueError(
-                f"Confidence must be 0.0-1.0, got {self.confidence}"
-            )
+
+        # Defensive normalization of confidence
+        try:
+            conf_val = float(self.confidence)
+        except (TypeError, ValueError):
+            raise ValueError(f"Confidence must be a valid float, got {self.confidence!r}")
+        if not 0.0 <= conf_val <= 1.0:
+            raise ValueError(f"Confidence must be 0.0-1.0, got {conf_val}")
+        if conf_val != self.confidence:
+            object.__setattr__(self, "confidence", conf_val)
+
+        # Defensive normalization of tags
+        if isinstance(self.tags, str):
+            norm_tags = tuple(t.strip() for t in self.tags.split(",") if t.strip())
+            object.__setattr__(self, "tags", norm_tags)
+        elif isinstance(self.tags, (list, tuple)):
+            norm_tags = tuple(str(t).strip() for t in self.tags if str(t).strip())
+            object.__setattr__(self, "tags", norm_tags)
+        else:
+            object.__setattr__(self, "tags", ())
+
         if len(self.tags) > 10:
             raise ValueError(f"Maximum 10 tags, got {len(self.tags)}")
+
+        # Defensive normalization of links
+        if isinstance(self.links, str):
+            norm_links = tuple(l.strip() for l in self.links.split(",") if l.strip())
+            object.__setattr__(self, "links", norm_links)
+        elif isinstance(self.links, (list, tuple)):
+            norm_links = tuple(str(l).strip() for l in self.links if str(l).strip())
+            object.__setattr__(self, "links", norm_links)
+        else:
+            object.__setattr__(self, "links", ())
+
+        if len(self.links) > 20:
+            raise ValueError(f"Maximum 20 links, got {len(self.links)}")
+
         if self.assurance_level is not None:
             if self.assurance_level not in {e.value for e in AssuranceLevel}:
                 raise ValueError(
@@ -164,8 +205,7 @@ class LedgerEntry:
             raise ValueError(
                 f"supersedes must be a valid CLP ID: {self.supersedes!r}"
             )
-        if len(self.links) > 20:
-            raise ValueError(f"Maximum 20 links, got {len(self.links)}")
+
         # CLP-001 (adversarial fix-up): signature must be a str or None.
         # A non-string signature (e.g., 123, True) would cause
         # hmac.compare_digest to raise TypeError, crashing ingest/validate
@@ -216,13 +256,29 @@ class LedgerEntry:
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> LedgerEntry:
-        """Deserialize from dictionary."""
-        tags = data.get("tags", [])
-        if isinstance(tags, list):
-            tags = tuple(tags)
-        links = data.get("links", [])
-        if isinstance(links, list):
-            links = tuple(links)
+        """Deserialize from dictionary with defensive type coercion."""
+        tags = data.get("tags", ())
+        if isinstance(tags, str):
+            tags = tuple(t.strip() for t in tags.split(",") if t.strip()) if tags else ()
+        elif isinstance(tags, (list, tuple)):
+            tags = tuple(str(t).strip() for t in tags if str(t).strip())
+        else:
+            tags = ()
+
+        links = data.get("links", ())
+        if isinstance(links, str):
+            links = tuple(l.strip() for l in links.split(",") if l.strip()) if links else ()
+        elif isinstance(links, (list, tuple)):
+            links = tuple(str(l).strip() for l in links if str(l).strip())
+        else:
+            links = ()
+
+        raw_conf = data.get("confidence", 0.9)
+        try:
+            conf_val = float(raw_conf)
+        except (TypeError, ValueError):
+            conf_val = 0.9
+
         return cls(
             id=data["id"],
             timestamp=data["timestamp"],
@@ -234,7 +290,7 @@ class LedgerEntry:
             content=data["content"],
             content_hash=data["content_hash"],
             evidence=data.get("evidence"),
-            confidence=data.get("confidence", 0.9),
+            confidence=conf_val,
             supersedes=data.get("supersedes"),
             tags=tags,
             assurance_level=data.get("assurance_level"),
