@@ -24,10 +24,38 @@ logger = logging.getLogger(__name__)
 DEFAULT_SQLITE_INDEX_PATH = "_state/cognition/index.db"
 
 
+def _resolve_db_path(override: str | Path | None = None) -> Path:
+    """Resolve the SQLite index file path."""
+    if override:
+        return Path(override)
+    env_path = os.environ.get("COGNITION_INDEX_DB")
+    if env_path:
+        return Path(env_path)
+    try:
+        import subprocess
+        root = subprocess.check_output(
+            ["git", "rev-parse", "--show-toplevel"],
+            stderr=subprocess.DEVNULL, text=True,
+        ).strip()
+        if root:
+            p = Path(root) / DEFAULT_SQLITE_INDEX_PATH
+            if p.exists() or p.parent.exists():
+                return p
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        pass
+
+    home_p = Path.home() / DEFAULT_SQLITE_INDEX_PATH
+    if home_p.exists():
+        return home_p
+
+    return Path(DEFAULT_SQLITE_INDEX_PATH)
+
+
 def _get_connection(db_path: Path) -> sqlite3.Connection:
     """Connect to SQLite database with WAL mode and foreign keys enabled."""
-    db_path.parent.mkdir(parents=True, exist_ok=True)
-    conn = sqlite3.connect(str(db_path))
+    db_file = _resolve_db_path(db_path)
+    db_file.parent.mkdir(parents=True, exist_ok=True)
+    conn = sqlite3.connect(str(db_file))
     conn.execute("PRAGMA journal_mode = WAL;")
     conn.execute("PRAGMA synchronous = NORMAL;")
     conn.execute("PRAGMA foreign_keys = ON;")
@@ -88,7 +116,7 @@ def build_sqlite_index(
     db_path: str | Path | None = None,
 ) -> int:
     """Rebuild SQLite index from ledger.jsonl. Returns count of indexed entries."""
-    db_file = Path(db_path) if db_path else Path(DEFAULT_SQLITE_INDEX_PATH)
+    db_file = _resolve_db_path(db_path)
     entries = read_entries(ledger_path=ledger_path, limit=999_999)
 
     conn = _get_connection(db_file)
@@ -129,6 +157,44 @@ def build_sqlite_index(
     return len(entries)
 
 
+def index_single_entry(
+    entry: Any,
+    db_path: str | Path | None = None,
+) -> None:
+    """Incrementally index a single LedgerEntry into the SQLite index."""
+    db_file = _resolve_db_path(db_path)
+    conn = _get_connection(db_file)
+    init_schema(conn)
+
+    with conn:
+        conn.execute("""
+        INSERT OR REPLACE INTO entries (
+            id, timestamp, agent, vendor, model, type, scope,
+            content, content_hash, confidence, supersedes, evidence, signature, assurance_level
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+        """, (
+            entry.id, entry.timestamp, entry.agent, entry.vendor, entry.model, entry.type, entry.scope,
+            entry.content, entry.content_hash, entry.confidence, entry.supersedes, entry.evidence, entry.signature, entry.assurance_level
+        ))
+
+        for tag in entry.tags:
+            conn.execute("INSERT OR IGNORE INTO tags (entry_id, tag) VALUES (?, ?);", (entry.id, tag))
+
+        for link in entry.links:
+            conn.execute("INSERT OR IGNORE INTO links (src, dst, kind) VALUES (?, ?, ?);", (entry.id, link, "link"))
+
+        if entry.supersedes:
+            conn.execute("INSERT OR IGNORE INTO links (src, dst, kind) VALUES (?, ?, ?);", (entry.id, entry.supersedes, "supersedes"))
+
+        # FTS5 insert or replace
+        conn.execute("DELETE FROM fts_entries WHERE id = ?;", (entry.id,))
+        conn.execute("""
+        INSERT INTO fts_entries (id, content, tags, agent) VALUES (?, ?, ?, ?);
+        """, (entry.id, entry.content, " ".join(entry.tags), entry.agent))
+
+    conn.close()
+
+
 def search_entries(
     query: str,
     *,
@@ -140,7 +206,7 @@ def search_entries(
     limit: int = 20,
 ) -> List[Dict[str, Any]]:
     """Search ledger using FTS5 full-text search with metadata filters."""
-    db_file = Path(db_path) if db_path else Path(DEFAULT_SQLITE_INDEX_PATH)
+    db_file = _resolve_db_path(db_path)
     if not db_file.exists():
         return []
 
@@ -204,7 +270,7 @@ def traverse_graph(
     max_depth: int = 5,
 ) -> List[Dict[str, Any]]:
     """Traverse declared links and supersession chains using SQLite WITH RECURSIVE CTE."""
-    db_file = Path(db_path) if db_path else Path(DEFAULT_SQLITE_INDEX_PATH)
+    db_file = _resolve_db_path(db_path)
     if not db_file.exists():
         return []
 
