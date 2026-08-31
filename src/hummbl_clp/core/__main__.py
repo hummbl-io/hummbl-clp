@@ -205,13 +205,75 @@ def cmd_boot(args: argparse.Namespace) -> int:
 
 
 def cmd_reindex(args: argparse.Namespace) -> int:
-    """Rebuild the search index."""
+    """Rebuild the search indices (BM25 JSON and SQLite WAL)."""
     from hummbl_clp.core.indexer import BM25Index
+    from hummbl_clp.core.sqlite_indexer import build_sqlite_index
 
     index = BM25Index()
     count = index.build(ledger_path=args.ledger)
     path = index.save()
-    print(f"Indexed {count} entries -> {path}")
+
+    sqlite_db = Path(args.ledger).parent / "index.db" if args.ledger else None
+    sqlite_count = build_sqlite_index(ledger_path=args.ledger, db_path=sqlite_db)
+
+    print(f"Indexed {count} entries -> {path} (BM25) and {sqlite_count} entries -> {sqlite_db or '_state/cognition/index.db'} (SQLite WAL)")
+    return 0
+
+
+def cmd_search(args: argparse.Namespace) -> int:
+    """Fast FTS5 and metadata search over SQLite index."""
+    from hummbl_clp.core.sqlite_indexer import search_entries
+
+    sqlite_db = Path(args.ledger).parent / "index.db" if args.ledger else args.db
+    results = search_entries(
+        query=args.query or "",
+        db_path=sqlite_db,
+        tags=args.tags,
+        scope=args.scope,
+        entry_type=args.type,
+        since=args.since,
+        limit=args.limit,
+    )
+
+    if not results:
+        print("No matching entries found.")
+        return 0
+
+    if args.json:
+        print(json.dumps(results, indent=2))
+    else:
+        for r in results:
+            tags_str = f" [{', '.join(r['tags'])}]" if r.get("tags") else ""
+            print(
+                f"[{r['timestamp']}] ({r['agent']}) "
+                f"{r['type'].upper()}/{r['scope']} (conf={r['confidence']}):\n"
+                f"  {r['content']}\n"
+                f"  ID: {r['id']}{tags_str}\n"
+            )
+        print(f"--- {len(results)} matches found ---")
+    return 0
+
+
+def cmd_graph(args: argparse.Namespace) -> int:
+    """Traverse cognitive ledger relational graph (links and supersedes)."""
+    from hummbl_clp.core.sqlite_indexer import traverse_graph
+
+    sqlite_db = Path(args.ledger).parent / "index.db" if args.ledger else args.db
+    chain = traverse_graph(
+        root_id=args.id,
+        db_path=sqlite_db,
+        max_depth=args.depth,
+    )
+
+    if not chain:
+        print(f"No outgoing links or supersession chains found for ID '{args.id}'.")
+        return 0
+
+    print(f"Relational Graph for [{args.id}] (max depth {args.depth}):")
+    for link in chain:
+        indent = "  " * link["depth"]
+        target_info = f"({link['type']}) {link['content'][:60]}..." if link.get("content") else ""
+        print(f"{indent}-> [{link['kind']}] {link['to_id']} {target_info}")
     return 0
 
 
@@ -327,6 +389,23 @@ def build_parser() -> argparse.ArgumentParser:
         help="Trust level",
     )
 
+    # search (SQLite FTS5)
+    p_search = subparsers.add_parser("search", help="Fast FTS5 and metadata search over SQLite index")
+    p_search.add_argument("query", nargs="?", default="", help="Text search query")
+    p_search.add_argument("--tags", nargs="*", help="Filter by tags")
+    p_search.add_argument("--scope", choices=[e.value for e in LedgerScope], help="Filter by scope")
+    p_search.add_argument("--type", choices=[e.value for e in LedgerEntryType], help="Filter by type")
+    p_search.add_argument("--since", help="ISO 8601 timestamp filter")
+    p_search.add_argument("--limit", type=int, default=20, help="Max entries to return")
+    p_search.add_argument("--db", help="Override SQLite index path")
+    p_search.add_argument("--json", action="store_true", help="Output as JSON")
+
+    # graph (relational traversal)
+    p_graph = subparsers.add_parser("graph", help="Traverse relational links and supersedes chains")
+    p_graph.add_argument("id", help="Root CLP entry ID to traverse from")
+    p_graph.add_argument("--depth", type=int, default=5, help="Maximum traversal depth (default: 5)")
+    p_graph.add_argument("--db", help="Override SQLite index path")
+
     # reindex
     subparsers.add_parser("reindex", help="Rebuild the search index")
 
@@ -370,6 +449,8 @@ def main(argv: list[str] | None = None) -> int:
         "post": cmd_post,
         "post-verified": cmd_post_verified,
         "query": cmd_query,
+        "search": cmd_search,
+        "graph": cmd_graph,
         "reindex": cmd_reindex,
         "validate": cmd_validate,
         "state": cmd_state,

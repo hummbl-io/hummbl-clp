@@ -449,6 +449,14 @@ def post_entry(
     if is_new_file:
         _harden_file_permissions(path)
 
+    # Synchronize SQLite derived index (best effort, fail-open)
+    try:
+        from hummbl_clp.core.sqlite_indexer import index_single_entry
+        db_path = path.parent / "index.db"
+        index_single_entry(entry, db_path=db_path)
+    except Exception as exc:
+        logger.debug("Failed to update SQLite index: %s", exc)
+
     logger.info(
         "Ledger entry posted: id=%s type=%s scope=%s agent=%s",
         entry.id,
@@ -514,7 +522,7 @@ def read_entries(
             try:
                 data = json.loads(line)
                 entry = LedgerEntry.from_dict(data)
-            except (json.JSONDecodeError, KeyError, ValueError) as e:
+            except (json.JSONDecodeError, KeyError, ValueError, TypeError) as e:
                 logger.warning("Skipping malformed ledger line %d: %s", line_num, e)
                 continue
 

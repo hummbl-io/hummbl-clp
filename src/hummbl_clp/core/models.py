@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import math
 import uuid
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
@@ -47,6 +48,9 @@ class AssuranceLevel(str, Enum):
 VALID_VENDORS = frozenset({
     "anthropic", "openai", "google", "moonshot", "local", "human",
 })
+VALID_ENTRY_TYPES = frozenset({e.value for e in LedgerEntryType})
+VALID_SCOPES = frozenset({e.value for e in LedgerScope})
+VALID_ASSURANCE_LEVELS = frozenset({e.value for e in AssuranceLevel})
 
 
 def _generate_entry_id() -> str:
@@ -124,7 +128,7 @@ class LedgerEntry:
     links: tuple[str, ...] = ()  # Related entry IDs (max 20, Zettelkasten-style)
 
     def __post_init__(self) -> None:
-        """Validate entry fields."""
+        """Validate and defensively normalize entry fields."""
         if not self.id.startswith("clp-") or len(self.id) != 16:
             raise ValueError(
                 f"Invalid entry ID format: {self.id!r} "
@@ -135,37 +139,95 @@ class LedgerEntry:
                 f"Invalid vendor: {self.vendor!r} "
                 f"(expected one of {sorted(VALID_VENDORS)})"
             )
-        if self.type not in {e.value for e in LedgerEntryType}:
+        # Defensive normalization of type and scope
+        if isinstance(self.type, str):
+            norm_type = self.type.strip().lower()
+            if norm_type != self.type:
+                object.__setattr__(self, "type", norm_type)
+        if self.type not in VALID_ENTRY_TYPES:
             raise ValueError(
                 f"Invalid type: {self.type!r} "
-                f"(expected one of {[e.value for e in LedgerEntryType]})"
+                f"(expected one of {sorted(VALID_ENTRY_TYPES)})"
             )
-        if self.scope not in {e.value for e in LedgerScope}:
+
+        if isinstance(self.scope, str):
+            norm_scope = self.scope.strip().lower()
+            if norm_scope != self.scope:
+                object.__setattr__(self, "scope", norm_scope)
+        if self.scope not in VALID_SCOPES:
             raise ValueError(
                 f"Invalid scope: {self.scope!r} "
-                f"(expected one of {[e.value for e in LedgerScope]})"
+                f"(expected one of {sorted(VALID_SCOPES)})"
             )
         if not self.content or len(self.content) > 4096:
             raise ValueError(
                 f"Content must be 1-4096 chars, got {len(self.content)}"
             )
-        if not 0.0 <= self.confidence <= 1.0:
-            raise ValueError(
-                f"Confidence must be 0.0-1.0, got {self.confidence}"
-            )
+
+        # Defensive normalization of confidence (F1, F3: reject bool, require finite float, unconditional assignment)
+        if isinstance(self.confidence, bool):
+            raise ValueError(f"Confidence cannot be a boolean: {self.confidence!r}")
+        try:
+            conf_val = float(self.confidence)
+        except (TypeError, ValueError):
+            raise ValueError(f"Confidence must be a valid float, got {self.confidence!r}")
+        if not math.isfinite(conf_val) or not 0.0 <= conf_val <= 1.0:
+            raise ValueError(f"Confidence must be a finite float between 0.0 and 1.0, got {conf_val}")
+        object.__setattr__(self, "confidence", conf_val)
+
+        # Defensive normalization of tags (F4: reject None / invalid elements)
+        if isinstance(self.tags, str):
+            norm_tags = tuple(t.strip() for t in self.tags.split(",") if t.strip())
+        elif isinstance(self.tags, (list, tuple)):
+            norm_tags_list = []
+            for t in self.tags:
+                if t is None:
+                    raise ValueError("Tag element cannot be None")
+                if not isinstance(t, (str, int, float)):
+                    raise ValueError(f"Invalid tag element type: {type(t).__name__}")
+                s = str(t).strip()
+                if s:
+                    norm_tags_list.append(s)
+            norm_tags = tuple(norm_tags_list)
+        else:
+            raise ValueError(f"tags must be a list, tuple, or string, got {type(self.tags).__name__}")
+        object.__setattr__(self, "tags", norm_tags)
+
         if len(self.tags) > 10:
             raise ValueError(f"Maximum 10 tags, got {len(self.tags)}")
+
+        # Defensive normalization of links
+        if isinstance(self.links, str):
+            norm_links = tuple(l.strip() for l in self.links.split(",") if l.strip())
+        elif isinstance(self.links, (list, tuple)):
+            norm_links_list = []
+            for l in self.links:
+                if l is None:
+                    raise ValueError("Link element cannot be None")
+                if not isinstance(l, (str, int, float)):
+                    raise ValueError(f"Invalid link element type: {type(l).__name__}")
+                s = str(l).strip()
+                if s:
+                    norm_links_list.append(s)
+            norm_links = tuple(norm_links_list)
+        else:
+            raise ValueError(f"links must be a list, tuple, or string, got {type(self.links).__name__}")
+        object.__setattr__(self, "links", norm_links)
+
+        if len(self.links) > 20:
+            raise ValueError(f"Maximum 20 links, got {len(self.links)}")
+
         if self.assurance_level is not None:
-            if self.assurance_level not in {e.value for e in AssuranceLevel}:
+            if self.assurance_level not in VALID_ASSURANCE_LEVELS:
                 raise ValueError(
-                    f"Invalid assurance_level: {self.assurance_level!r}"
+                    f"Invalid assurance_level: {self.assurance_level!r} "
+                    f"(expected one of {sorted(VALID_ASSURANCE_LEVELS)})"
                 )
         if self.supersedes is not None and not self.supersedes.startswith("clp-"):
             raise ValueError(
                 f"supersedes must be a valid CLP ID: {self.supersedes!r}"
             )
-        if len(self.links) > 20:
-            raise ValueError(f"Maximum 20 links, got {len(self.links)}")
+
         # CLP-001 (adversarial fix-up): signature must be a str or None.
         # A non-string signature (e.g., 123, True) would cause
         # hmac.compare_digest to raise TypeError, crashing ingest/validate
@@ -216,13 +278,27 @@ class LedgerEntry:
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> LedgerEntry:
-        """Deserialize from dictionary."""
-        tags = data.get("tags", [])
-        if isinstance(tags, list):
+        """Deserialize from dictionary with defensive type coercion."""
+        tags = data.get("tags", ())
+        if isinstance(tags, str):
+            tags = tuple(t.strip() for t in tags.split(",") if t.strip()) if tags else ()
+        elif isinstance(tags, (list, tuple)):
             tags = tuple(tags)
-        links = data.get("links", [])
-        if isinstance(links, list):
+        else:
+            tags = ()
+
+        links = data.get("links", ())
+        if isinstance(links, str):
+            links = tuple(l.strip() for l in links.split(",") if l.strip()) if links else ()
+        elif isinstance(links, (list, tuple)):
             links = tuple(links)
+        else:
+            links = ()
+
+        raw_conf = data.get("confidence", 0.9)
+        if raw_conf is None:
+            raise ValueError("confidence cannot be None in from_dict")
+
         return cls(
             id=data["id"],
             timestamp=data["timestamp"],
@@ -234,7 +310,7 @@ class LedgerEntry:
             content=data["content"],
             content_hash=data["content_hash"],
             evidence=data.get("evidence"),
-            confidence=data.get("confidence", 0.9),
+            confidence=raw_conf,
             supersedes=data.get("supersedes"),
             tags=tags,
             assurance_level=data.get("assurance_level"),
