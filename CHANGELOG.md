@@ -81,7 +81,11 @@ Versions follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Known issues
 
 - 10 extension modules have founder-mode coupling pending decoupling (see
+<<<<<<< HEAD
   README.md and docs/architecture/ROADMAP.md).
+=======
+  README.md and ROADMAP.md).
+>>>>>>> 2b2ae1e (docs: add canonical governance doc stack (17/17))
 - 64 ruff lint findings (mostly style/modernization).
 - Optional dependencies unpinned.
 - License field in `pyproject.toml` says MIT; governance standard requires
