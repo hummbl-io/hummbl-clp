@@ -8,7 +8,7 @@ on:
 
 jobs:
   repo-validation:
-    runs-on: [self-hosted, anvil-ci]
+    runs-on: [self-hosted, Windows, X64]
     timeout-minutes: 10
     steps:
       - name: Checkout
