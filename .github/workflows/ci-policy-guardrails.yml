@@ -1,0 +1,47 @@
+name: CI Policy Guardrails
+
+# Rec 1 from AAR ci-cost-remediation (2026-08-19):
+# Prevents reintroduction of self-hosted runner labels that caused
+# $10->$20 Actions budget overrun from stuck-queue billing.
+#
+# Any repo in hummbl-io can include this as a required check.
+# It fails if a PR introduces a disallowed self-hosted runs-on label.
+#
+# Approved: [self-hosted, Windows, X64] (anvil-windows-hummbl-io)
+#           [self-hosted, Linux]       (hummbl-runner-isolated)
+# Disallowed: everything else with `self-hosted` in runs-on
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+permissions:
+  contents: read
+
+jobs:
+  self-hosted-label-check:
+    name: No Disallowed Self-Hosted Labels
+    runs-on: [self-hosted, Linux]
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+      - name: Check for disallowed self-hosted labels
+        shell: bash
+        run: |
+          set -euo pipefail
+          # Get changed workflow files in this PR
+          BASE="${{ github.event.pull_request.base.sha || github.sha }}"
+          HEAD="${{ github.event.pull_request.head.sha || github.sha }}"
+          CHANGED=$(git diff --name-only "$BASE" "$HEAD" -- '.github/workflows/*.yml' '.github/workflows/*.yaml' 2>/dev/null || true)
+          if [ -z "$CHANGED" ]; then
+            echo "No workflow files changed — skipping."
+            exit 0
+          fi
+          # Use the standalone script (Rec 3: testable outside CI)
+          bash scripts/check_self_hosted_labels.sh $CHANGED
