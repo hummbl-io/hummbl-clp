@@ -7,7 +7,7 @@ on:
 jobs:
   merge-gate-check:
     if: github.event_name == 'pull_request'
-    runs-on: [self-hosted, anvil-ci]
+    runs-on: [self-hosted, Windows, X64]
     steps:
       - name: Checkout
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
