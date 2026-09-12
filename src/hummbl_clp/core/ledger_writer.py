@@ -521,7 +521,9 @@ def read_entries(
                 continue
             try:
                 data = json.loads(line)
-                entry = LedgerEntry.from_dict(data)
+                # strict=False: tolerate legacy schema drift in persisted
+                # entries (non-clp- IDs, unknown vendors, missing content_hash)
+                entry = LedgerEntry.from_dict(data, strict=False)
             except (json.JSONDecodeError, KeyError, ValueError, TypeError) as e:
                 logger.warning("Skipping malformed ledger line %d: %s", line_num, e)
                 continue

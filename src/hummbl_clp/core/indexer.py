@@ -257,7 +257,7 @@ class BM25Index:
                 json.dump(data, f, separators=(",", ":"))
                 f.flush()
                 os.fsync(f.fileno())
-            os.rename(tmp_path, str(index_path))
+            os.replace(tmp_path, str(index_path))
         except BaseException:
             with contextlib.suppress(OSError):
                 os.unlink(tmp_path)

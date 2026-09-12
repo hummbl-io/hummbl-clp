@@ -249,7 +249,7 @@ class WorkingMemoryStore:
                 f.write(content)
                 f.flush()
                 os.fsync(f.fileno())
-            os.rename(tmp_path, self._path)
+            os.replace(tmp_path, self._path)
         except BaseException:
             with contextlib.suppress(OSError):
                 os.unlink(tmp_path)
