@@ -10,7 +10,7 @@ import hashlib
 import json
 import math
 import uuid
-from dataclasses import dataclass, field
+from dataclasses import InitVar, dataclass, field
 from datetime import datetime, timezone
 from enum import Enum
 from typing import Any
@@ -42,11 +42,13 @@ class AssuranceLevel(str, Enum):
     SELF = "SELF"  # Agent asserts its own learning
     PEER = "PEER"  # Another agent reviewed and confirmed
     VERIFIED = "VERIFIED"  # Human or governance process verified
+    SWARM = "SWARM"  # Multi-agent swarm consensus attestation
 
 
 # Allowed vendor identifiers
 VALID_VENDORS = frozenset({
     "anthropic", "openai", "google", "moonshot", "local", "human",
+    "zai", "cognition", "unknown",
 })
 VALID_ENTRY_TYPES = frozenset({e.value for e in LedgerEntryType})
 VALID_SCOPES = frozenset({e.value for e in LedgerScope})
@@ -127,24 +129,37 @@ class LedgerEntry:
     signature: str | None = None  # HMAC-SHA256 hex (optional)
     links: tuple[str, ...] = ()  # Related entry IDs (max 20, Zettelkasten-style)
 
-    def __post_init__(self) -> None:
+    # Init-only flag: when True, format/enum checks (id, vendor,
+    # assurance_level) are relaxed for already-persisted entries that predate
+    # the current schema. Content, confidence, tags, links, and signature
+    # checks always apply. Passed via from_dict(strict=False); never stored.
+    _relaxed: InitVar[bool] = False
+
+    def __post_init__(self, _relaxed: bool = False) -> None:
         """Validate and defensively normalize entry fields."""
-        if not self.id.startswith("clp-") or len(self.id) != 16:
-            raise ValueError(
-                f"Invalid entry ID format: {self.id!r} "
-                "(expected clp-<12 hex chars>)"
-            )
+        if _relaxed:
+            if not isinstance(self.id, str) or not self.id:
+                raise ValueError(f"Entry ID must be a non-empty string: {self.id!r}")
+        else:
+            if not self.id.startswith("clp-") or len(self.id) != 16:
+                raise ValueError(
+                    f"Invalid entry ID format: {self.id!r} "
+                    "(expected clp-<12 hex chars>)"
+                )
         if self.vendor not in VALID_VENDORS:
-            raise ValueError(
-                f"Invalid vendor: {self.vendor!r} "
-                f"(expected one of {sorted(VALID_VENDORS)})"
-            )
+            if _relaxed and isinstance(self.vendor, str):
+                pass  # tolerate legacy vendor values in persisted entries
+            else:
+                raise ValueError(
+                    f"Invalid vendor: {self.vendor!r} "
+                    f"(expected one of {sorted(VALID_VENDORS)})"
+                )
         # Defensive normalization of type and scope
         if isinstance(self.type, str):
             norm_type = self.type.strip().lower()
             if norm_type != self.type:
                 object.__setattr__(self, "type", norm_type)
-        if self.type not in VALID_ENTRY_TYPES:
+        if self.type not in VALID_ENTRY_TYPES and not _relaxed:
             raise ValueError(
                 f"Invalid type: {self.type!r} "
                 f"(expected one of {sorted(VALID_ENTRY_TYPES)})"
@@ -154,12 +169,12 @@ class LedgerEntry:
             norm_scope = self.scope.strip().lower()
             if norm_scope != self.scope:
                 object.__setattr__(self, "scope", norm_scope)
-        if self.scope not in VALID_SCOPES:
+        if self.scope not in VALID_SCOPES and not _relaxed:
             raise ValueError(
                 f"Invalid scope: {self.scope!r} "
                 f"(expected one of {sorted(VALID_SCOPES)})"
             )
-        if not self.content or len(self.content) > 4096:
+        if not self.content or (len(self.content) > 4096 and not _relaxed):
             raise ValueError(
                 f"Content must be 1-4096 chars, got {len(self.content)}"
             )
@@ -218,12 +233,12 @@ class LedgerEntry:
             raise ValueError(f"Maximum 20 links, got {len(self.links)}")
 
         if self.assurance_level is not None:
-            if self.assurance_level not in VALID_ASSURANCE_LEVELS:
+            if self.assurance_level not in VALID_ASSURANCE_LEVELS and not _relaxed:
                 raise ValueError(
                     f"Invalid assurance_level: {self.assurance_level!r} "
                     f"(expected one of {sorted(VALID_ASSURANCE_LEVELS)})"
                 )
-        if self.supersedes is not None and not self.supersedes.startswith("clp-"):
+        if self.supersedes is not None and not self.supersedes.startswith("clp-") and not _relaxed:
             raise ValueError(
                 f"supersedes must be a valid CLP ID: {self.supersedes!r}"
             )
@@ -239,6 +254,8 @@ class LedgerEntry:
             )
         for link_id in self.links:
             if not link_id.startswith("clp-") or len(link_id) != 16:
+                if _relaxed:
+                    continue
                 raise ValueError(
                     f"Invalid link ID format: {link_id!r} "
                     "(expected clp-<12 hex chars>)"
@@ -277,8 +294,14 @@ class LedgerEntry:
         return json.dumps(self.to_dict(), sort_keys=True, separators=(",", ":"))
 
     @classmethod
-    def from_dict(cls, data: dict[str, Any]) -> LedgerEntry:
-        """Deserialize from dictionary with defensive type coercion."""
+    def from_dict(cls, data: dict[str, Any], *, strict: bool = True) -> LedgerEntry:
+        """Deserialize from dictionary with defensive type coercion.
+
+        strict=True (default) enforces the full schema contract for new writes.
+        strict=False tolerates legacy persisted entries: non-clp- IDs, unknown
+        vendors, unknown assurance levels, and missing content_hash are
+        accepted; all other checks still apply.
+        """
         tags = data.get("tags", ())
         if isinstance(tags, str):
             tags = tuple(t.strip() for t in tags.split(",") if t.strip()) if tags else ()
@@ -299,16 +322,26 @@ class LedgerEntry:
         if raw_conf is None:
             raise ValueError("confidence cannot be None in from_dict")
 
+        vendor = data.get("vendor")
+        if not strict and vendor is None:
+            vendor = "unknown"
+        model = data.get("model")
+        if not strict and model is None:
+            model = "unknown"
+        scope = data.get("scope")
+        if not strict and scope is None:
+            scope = "project"
+
         return cls(
             id=data["id"],
             timestamp=data["timestamp"],
             agent=data["agent"],
-            vendor=data["vendor"],
-            model=data["model"],
+            vendor=vendor,
+            model=model,
             type=data["type"],
-            scope=data["scope"],
+            scope=scope,
             content=data["content"],
-            content_hash=data["content_hash"],
+            content_hash=data.get("content_hash") or "",
             evidence=data.get("evidence"),
             confidence=raw_conf,
             supersedes=data.get("supersedes"),
@@ -316,6 +349,7 @@ class LedgerEntry:
             assurance_level=data.get("assurance_level"),
             signature=data.get("signature"),
             links=links,
+            _relaxed=not strict,
         )
 
     def verify_hash(self) -> bool:
