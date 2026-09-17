@@ -7,7 +7,7 @@ under active development. It is not archived and not in scavenger mode.
 
 The core ledger engine (13 of 23 source files) is self-contained and
 stdlib-only. Extension modules are being decoupled from founder-mode services
-per the ROADMAP.
+per `docs/architecture/ROADMAP.md`.
 
 ## What to extract from here
 

@@ -15,7 +15,7 @@ jobs:
       - name: Verify canary doc exists
         shell: pwsh
         run: |
-          if (-not (Test-Path "docs/merge-gate-canary-2026-05-27.md")) {
+          if (-not (Test-Path "docs/research/merge-gate-canary-2026-05-27.md")) {
             Write-Error "Missing merge gate canary marker file"
             exit 1
           }

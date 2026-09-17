@@ -16,7 +16,7 @@ Three layers:
 
 Core modules (`src/hummbl_clp/core/`): stdlib-only, self-contained.
 Extension modules (`src/hummbl_clp/extensions/`): coupled to founder-mode,
-pending decoupling (see ROADMAP.md).
+pending decoupling (see docs/architecture/ROADMAP.md).
 
 ## Commands
 
