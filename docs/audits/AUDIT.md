@@ -84,8 +84,8 @@ content. No actual hardcoded secrets found.
 Only 5 of 17 canonical governance docs were present:
 - Present: `AGENTS.md`, `CLAUDE.md`, `CONTRIBUTING.md`, `README.md`, `SECURITY.md`
 - Missing (12): `CONSTITUTION.md`, `KRINEIA.md`, `DOCTRINE.md`,
-  `CODE_OF_CONDUCT.md`, `TRADEMARK.md`, `COMMERCIAL_USE.md`, `PRIMITIVES.md`,
-  `ROADMAP.md`, `AUDIT.md`, `BRAND_GUIDELINES.md`, `SCAVENGE.md`,
+  `CODE_OF_CONDUCT.md`, `docs/policy/TRADEMARK.md`, `docs/policy/COMMERCIAL_USE.md`, `docs/doctrine/PRIMITIVES.md`,
+  `docs/architecture/ROADMAP.md`, `docs/audits/AUDIT.md`, `docs/research/BRAND_GUIDELINES.md`, `docs/research/SCAVENGE.md`,
   `CHANGELOG.md`
 
 **Remediation:** All 12 missing docs created with content adapted to this

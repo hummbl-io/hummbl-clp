@@ -1,0 +1,5 @@
+{
+  "schema": "hummbl.docs-layout.v1",
+  "root_allow": ["KRINEIA.md"],
+  "exempt_dirs": []
+}

@@ -13,8 +13,8 @@ Versions follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 - **Governance doc stack remediation** — 12 missing governance docs created to
   bring the repo to a full 17-doc stack: `CONSTITUTION.md`, `KRINEIA.md`,
-  `DOCTRINE.md`, `PRIMITIVES.md`, `ROADMAP.md`, `AUDIT.md`, `SCAVENGE.md`,
-  `TRADEMARK.md`, `COMMERCIAL_USE.md`, `BRAND_GUIDELINES.md`,
+  `DOCTRINE.md`, `docs/doctrine/PRIMITIVES.md`, `docs/architecture/ROADMAP.md`, `docs/audits/AUDIT.md`, `docs/research/SCAVENGE.md`,
+  `docs/policy/TRADEMARK.md`, `docs/policy/COMMERCIAL_USE.md`, `docs/research/BRAND_GUIDELINES.md`,
   `CODE_OF_CONDUCT.md`, and this `CHANGELOG.md`. All content adapted to the
   repo's actual purpose, scope, and technology.
 
@@ -81,7 +81,7 @@ Versions follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Known issues
 
 - 10 extension modules have founder-mode coupling pending decoupling (see
-  README.md and ROADMAP.md).
+  README.md and docs/architecture/ROADMAP.md).
 - 64 ruff lint findings (mostly style/modernization).
 - Optional dependencies unpinned.
 - License field in `pyproject.toml` says MIT; governance standard requires
