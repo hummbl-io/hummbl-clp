@@ -27,3 +27,20 @@ jobs:
 
           subprocess.run([sys.executable, "tools/validate_repo.py"], check=True)
 
+      - name: Run tests in a fresh environment
+        shell: python
+        run: |
+          import os
+          from pathlib import Path
+          import subprocess
+          import sys
+          import tempfile
+
+          with tempfile.TemporaryDirectory(prefix="clp-ci-", dir=os.environ["RUNNER_TEMP"]) as temporary:
+              root = Path(temporary)
+              environment = root / "venv"
+              subprocess.run([sys.executable, "-m", "venv", str(environment)], check=True)
+              python = environment / "Scripts" / "python.exe"
+              subprocess.run([str(python), "-m", "pip", "install", "--disable-pip-version-check", ".[test]"], check=True)
+              test_env = dict(os.environ, PYTEST_ADDOPTS="", PYTEST_PLUGINS="", PYTEST_DISABLE_PLUGIN_AUTOLOAD="1", PYTHONNOUSERSITE="1", PYTHONDONTWRITEBYTECODE="1")
+              subprocess.run([str(python), "-m", "pytest", "-q", "-c", "pyproject.toml", "--confcutdir", ".", "--basetemp", str(root / "pytest"), "tests"], check=True, env=test_env)
