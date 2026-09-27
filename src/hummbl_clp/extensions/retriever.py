@@ -49,6 +49,79 @@ def _resolve_state_dir(override: str | Path | None = None) -> Path:
     return Path("_state")
 
 
+class LedgerPool(MemoryPool):
+    """Cognitive ledger pool backed by the BM25 inverted index."""
+
+    def __init__(
+        self,
+        *,
+        index: BM25Index,
+        index_path: str | Path,
+    ) -> None:
+        self.index = index
+        self.index_path = Path(index_path)
+        self._index_loaded = False
+
+    @property
+    def name(self) -> str:
+        return "ledger"
+
+    def mark_index_loaded(self) -> None:
+        """Mark the index as loaded/built externally (e.g., by the server)."""
+        self._index_loaded = True
+
+    def ensure_index(self, ledger_path: str | Path | None = None) -> None:
+        """Load or build the index."""
+        if self._index_loaded:
+            return
+        if not self.index.load(self.index_path):
+            self.index.build(ledger_path)
+            try:
+                self.index.save(self.index_path)
+            except OSError as e:
+                logger.warning("Could not save index: %s", e)
+        self._index_loaded = True
+
+    def search(
+        self,
+        query: str,
+        *,
+        limit: int = 50,
+        since: str | None = None,
+        scope: str | None = None,
+        entry_type: str | None = None,
+        **kwargs: Any,
+    ) -> list[MemoryResult]:
+        """Search the cognitive ledger via BM25 index."""
+        self.ensure_index()
+
+        hits = self.index.search(
+            query, limit=limit, scope=scope,
+            entry_type=entry_type, since=since,
+        )
+
+        results = []
+        for hit in hits:
+            meta = hit["meta"]
+            content = meta.get("content_preview", "")
+            results.append(MemoryResult(
+                source="ledger",
+                entry_id=hit["id"],
+                score=hit["score"],
+                content=content,
+                metadata={
+                    "type": meta.get("type"),
+                    "scope": meta.get("scope"),
+                    "agent": meta.get("agent"),
+                    "timestamp": meta.get("timestamp"),
+                    "confidence": meta.get("confidence"),
+                    "tags": meta.get("tags", []),
+                },
+                tokens=_estimate_tokens(content),
+            ))
+        return results
+
+
 class TextFilePool(MemoryPool):
     """A directory of text files searched by simple term overlap.
 
@@ -265,14 +338,17 @@ class OpenBrainRetriever:
     ) -> None:
         self.state_dir = _resolve_state_dir(state_dir)
         self.index = index or BM25Index()
-        self._index_loaded = False
         self.pools = {
             p.name: p for p in (pools if pools is not None else self._default_pools())
         }
 
     def _default_pools(self) -> list[MemoryPool]:
-        """Build the default non-ledger pool set from the state dir."""
+        """Build the default pool set from the state dir."""
         return [
+            LedgerPool(
+                index=self.index,
+                index_path=self.state_dir / "cognition" / "index.json",
+            ),
             TextFilePool(
                 name="bus",
                 search_dir=self.state_dir / "coordination",
@@ -287,18 +363,11 @@ class OpenBrainRetriever:
             MemoryMdPool(),
         ]
 
-    def ensure_index(self, ledger_path: str | Path | None = None) -> None:
-        """Load or build the index."""
-        if self._index_loaded:
-            return
-        index_path = self.state_dir / "cognition" / "index.json"
-        if not self.index.load(index_path):
-            self.index.build(ledger_path)
-            try:
-                self.index.save(index_path)
-            except OSError as e:
-                logger.warning("Could not save index: %s", e)
-        self._index_loaded = True
+    def mark_index_loaded(self) -> None:
+        """Mark the ledger index as loaded (delegates to the ledger pool)."""
+        ledger = self.pools.get("ledger")
+        if isinstance(ledger, LedgerPool):
+            ledger.mark_index_loaded()
 
     def search(
         self,
@@ -345,8 +414,9 @@ class OpenBrainRetriever:
 
         results: list[MemoryResult] = []
 
-        if "ledger" in all_sources:
-            results.extend(self._search_ledger(
+        ledger_pool = self.pools.get("ledger")
+        if "ledger" in all_sources and isinstance(ledger_pool, LedgerPool):
+            results.extend(ledger_pool.search(
                 query, scope=scope, entry_type=entry_type,
                 since=since, limit=limit,
             ))
@@ -402,44 +472,6 @@ class OpenBrainRetriever:
                 pass  # Non-critical
 
         return budgeted
-
-    def _search_ledger(
-        self,
-        query: str,
-        *,
-        scope: str | None = None,
-        entry_type: str | None = None,
-        since: str | None = None,
-        limit: int = 20,
-    ) -> list[MemoryResult]:
-        """Search the cognitive ledger via BM25 index."""
-        self.ensure_index()
-
-        hits = self.index.search(
-            query, limit=limit, scope=scope,
-            entry_type=entry_type, since=since,
-        )
-
-        results = []
-        for hit in hits:
-            meta = hit["meta"]
-            content = meta.get("content_preview", "")
-            results.append(MemoryResult(
-                source="ledger",
-                entry_id=hit["id"],
-                score=hit["score"],
-                content=content,
-                metadata={
-                    "type": meta.get("type"),
-                    "scope": meta.get("scope"),
-                    "agent": meta.get("agent"),
-                    "timestamp": meta.get("timestamp"),
-                    "confidence": meta.get("confidence"),
-                    "tags": meta.get("tags", []),
-                },
-                tokens=_estimate_tokens(content),
-            ))
-        return results
 
 
 def _extract_tsv_messages(
