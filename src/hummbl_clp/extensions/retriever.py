@@ -12,10 +12,11 @@ import json
 import logging
 import os
 from pathlib import Path
+from typing import Any
 
 from hummbl_clp.extensions.feedback_tracker import log_retrieval
 from hummbl_clp.core.indexer import BM25Index, tokenize
-from hummbl_clp.core.interfaces import MemoryResult
+from hummbl_clp.core.interfaces import MemoryPool, MemoryResult
 
 logger = logging.getLogger(__name__)
 
@@ -48,6 +49,202 @@ def _resolve_state_dir(override: str | Path | None = None) -> Path:
     return Path("_state")
 
 
+class TextFilePool(MemoryPool):
+    """A directory of text files searched by simple term overlap.
+
+    Parameterized so one implementation covers both the bus TSV digests
+    and the briefings markdown pool.
+    """
+
+    def __init__(
+        self,
+        *,
+        name: str,
+        search_dir: str | Path,
+        glob_pattern: str,
+    ) -> None:
+        self._name = name
+        self.search_dir = Path(search_dir)
+        self.glob_pattern = glob_pattern
+
+    @property
+    def name(self) -> str:
+        return self._name
+
+    def search(
+        self,
+        query: str,
+        *,
+        limit: int = 50,
+        since: str | None = None,
+        **kwargs: Any,
+    ) -> list[MemoryResult]:
+        """Search the directory's text files using simple term matching."""
+        if not self.search_dir.exists():
+            return []
+
+        query_tokens = set(tokenize(query))
+        if not query_tokens:
+            return []
+
+        results = []
+        try:
+            files = sorted(self.search_dir.glob(self.glob_pattern), reverse=True)
+        except OSError:
+            return []
+
+        for filepath in files[:20]:  # Cap file scan
+            try:
+                text = filepath.read_text(encoding="utf-8", errors="replace")
+            except OSError:
+                continue
+
+            # TSV-aware: extract message column for bus files
+            if filepath.suffix == ".tsv":
+                text = _extract_tsv_messages(text, since=since)
+
+            # Simple term overlap scoring
+            file_tokens = set(tokenize(text[:5000]))  # Cap per file
+            overlap = query_tokens & file_tokens
+            if not overlap:
+                continue
+
+            score = len(overlap) / len(query_tokens)
+
+            # Extract relevant snippet
+            snippet = _extract_snippet(text, query_tokens, max_chars=500)
+
+            results.append(MemoryResult(
+                source=self.name,
+                entry_id=f"{self.name}:{filepath.name}",
+                score=score * 0.7,  # Discount vs ledger BM25
+                content=snippet,
+                metadata={"file": str(filepath.name)},
+                tokens=_estimate_tokens(snippet),
+            ))
+
+        results.sort(key=lambda r: r.score, reverse=True)
+        return results[:limit]
+
+
+class FindingsPool(MemoryPool):
+    """Autoresearch distillation findings (``findings_*.json``)."""
+
+    def __init__(self, *, findings_dir: str | Path) -> None:
+        self.findings_dir = Path(findings_dir)
+
+    @property
+    def name(self) -> str:
+        return "findings"
+
+    def search(
+        self,
+        query: str,
+        *,
+        limit: int = 50,
+        since: str | None = None,
+        **kwargs: Any,
+    ) -> list[MemoryResult]:
+        """Search autoresearch distillation findings."""
+        if not self.findings_dir.exists():
+            return []
+
+        query_tokens = set(tokenize(query))
+        if not query_tokens:
+            return []
+
+        results = []
+        for filepath in self.findings_dir.glob("findings_*.json"):
+            try:
+                data = json.loads(filepath.read_text(encoding="utf-8"))
+            except (json.JSONDecodeError, OSError):
+                continue
+
+            findings = data if isinstance(data, list) else data.get("findings", [])
+            for finding in findings:
+                claim = finding.get("claim", "")
+                tokens = set(tokenize(claim))
+                overlap = query_tokens & tokens
+                if not overlap:
+                    continue
+
+                score = len(overlap) / len(query_tokens) * 0.8
+                results.append(MemoryResult(
+                    source="findings",
+                    entry_id=finding.get("id", f"finding:{filepath.name}"),
+                    score=score,
+                    content=claim,
+                    metadata={
+                        "source_file": finding.get("source", ""),
+                        "confidence": finding.get("confidence", 0),
+                        "category": finding.get("category", ""),
+                    },
+                    tokens=_estimate_tokens(claim),
+                ))
+
+        results.sort(key=lambda r: r.score, reverse=True)
+        return results[:limit]
+
+
+class MemoryMdPool(MemoryPool):
+    """Claude Code MEMORY.md files."""
+
+    def __init__(self, *, memory_dir: str | Path | None = None) -> None:
+        self.memory_dir = (
+            Path(memory_dir) if memory_dir else Path.home() / ".claude" / "projects"
+        )
+
+    @property
+    def name(self) -> str:
+        return "memory_md"
+
+    def search(
+        self,
+        query: str,
+        *,
+        limit: int = 50,
+        since: str | None = None,
+        **kwargs: Any,
+    ) -> list[MemoryResult]:
+        """Search Claude Code MEMORY.md files."""
+        if not self.memory_dir.exists():
+            return []
+
+        query_tokens = set(tokenize(query))
+        if not query_tokens:
+            return []
+
+        results = []
+        try:
+            for memory_file in self.memory_dir.rglob("memory/*.md"):
+                try:
+                    text = memory_file.read_text(encoding="utf-8", errors="replace")
+                except OSError:
+                    continue
+
+                file_tokens = set(tokenize(text[:3000]))
+                overlap = query_tokens & file_tokens
+                if not overlap:
+                    continue
+
+                score = len(overlap) / len(query_tokens) * 0.6
+                snippet = _extract_snippet(text, query_tokens, max_chars=300)
+
+                results.append(MemoryResult(
+                    source="memory_md",
+                    entry_id=f"memory:{memory_file.name}",
+                    score=score,
+                    content=snippet,
+                    metadata={"file": str(memory_file)},
+                    tokens=_estimate_tokens(snippet),
+                ))
+        except OSError:
+            pass
+
+        results.sort(key=lambda r: r.score, reverse=True)
+        return results[:limit]
+
+
 class OpenBrainRetriever:
     """Unified retriever across all memory pools.
 
@@ -64,10 +261,31 @@ class OpenBrainRetriever:
         *,
         state_dir: str | Path | None = None,
         index: BM25Index | None = None,
+        pools: list[MemoryPool] | None = None,
     ) -> None:
         self.state_dir = _resolve_state_dir(state_dir)
         self.index = index or BM25Index()
         self._index_loaded = False
+        self.pools = {
+            p.name: p for p in (pools if pools is not None else self._default_pools())
+        }
+
+    def _default_pools(self) -> list[MemoryPool]:
+        """Build the default non-ledger pool set from the state dir."""
+        return [
+            TextFilePool(
+                name="bus",
+                search_dir=self.state_dir / "coordination",
+                glob_pattern="*.tsv",
+            ),
+            TextFilePool(
+                name="briefings",
+                search_dir=self.state_dir.parent / "state" / "briefings",
+                glob_pattern="*.md",
+            ),
+            FindingsPool(findings_dir=self.state_dir / "autoresearch"),
+            MemoryMdPool(),
+        ]
 
     def ensure_index(self, ledger_path: str | Path | None = None) -> None:
         """Load or build the index."""
@@ -133,29 +351,14 @@ class OpenBrainRetriever:
                 since=since, limit=limit,
             ))
 
-        if "bus" in all_sources:
-            results.extend(self._search_text_pool(
-                query, pool_name="bus",
-                search_dir=self.state_dir / "coordination",
-                glob_pattern="*.tsv",
-                since=since, limit=limit // 4,
-            ))
-
-        if "briefings" in all_sources:
-            results.extend(self._search_text_pool(
-                query, pool_name="briefings",
-                search_dir=self.state_dir.parent / "state" / "briefings",
-                glob_pattern="*.md",
-                since=since, limit=limit // 4,
-            ))
-
-        if "findings" in all_sources:
-            results.extend(self._search_findings(
-                query, since=since, limit=limit // 4,
-            ))
-
-        if "memory_md" in all_sources:
-            results.extend(self._search_memory_md(query, limit=limit // 4))
+        for source in all_sources:
+            if source == "ledger":
+                continue
+            pool = self.pools.get(source)
+            if pool is not None:
+                results.extend(pool.search(
+                    query, since=since, limit=limit // 4,
+                ))
 
         # Sort all results by score
         results.sort(key=lambda r: r.score, reverse=True)
@@ -237,156 +440,6 @@ class OpenBrainRetriever:
                 tokens=_estimate_tokens(content),
             ))
         return results
-
-    def _search_text_pool(
-        self,
-        query: str,
-        *,
-        pool_name: str,
-        search_dir: Path,
-        glob_pattern: str,
-        since: str | None = None,
-        limit: int = 5,
-    ) -> list[MemoryResult]:
-        """Search a directory of text files using simple term matching."""
-        if not search_dir.exists():
-            return []
-
-        query_tokens = set(tokenize(query))
-        if not query_tokens:
-            return []
-
-        results = []
-        try:
-            files = sorted(search_dir.glob(glob_pattern), reverse=True)
-        except OSError:
-            return []
-
-        for filepath in files[:20]:  # Cap file scan
-            try:
-                text = filepath.read_text(encoding="utf-8", errors="replace")
-            except OSError:
-                continue
-
-            # TSV-aware: extract message column for bus files
-            if filepath.suffix == ".tsv":
-                text = _extract_tsv_messages(text, since=since)
-
-            # Simple term overlap scoring
-            file_tokens = set(tokenize(text[:5000]))  # Cap per file
-            overlap = query_tokens & file_tokens
-            if not overlap:
-                continue
-
-            score = len(overlap) / len(query_tokens)
-
-            # Extract relevant snippet
-            snippet = _extract_snippet(text, query_tokens, max_chars=500)
-
-            results.append(MemoryResult(
-                source=pool_name,
-                entry_id=f"{pool_name}:{filepath.name}",
-                score=score * 0.7,  # Discount vs ledger BM25
-                content=snippet,
-                metadata={"file": str(filepath.name)},
-                tokens=_estimate_tokens(snippet),
-            ))
-
-        results.sort(key=lambda r: r.score, reverse=True)
-        return results[:limit]
-
-    def _search_findings(
-        self,
-        query: str,
-        *,
-        since: str | None = None,
-        limit: int = 5,
-    ) -> list[MemoryResult]:
-        """Search autoresearch distillation findings."""
-        findings_dir = self.state_dir / "autoresearch"
-        if not findings_dir.exists():
-            return []
-
-        query_tokens = set(tokenize(query))
-        if not query_tokens:
-            return []
-
-        results = []
-        for filepath in findings_dir.glob("findings_*.json"):
-            try:
-                data = json.loads(filepath.read_text(encoding="utf-8"))
-            except (json.JSONDecodeError, OSError):
-                continue
-
-            findings = data if isinstance(data, list) else data.get("findings", [])
-            for finding in findings:
-                claim = finding.get("claim", "")
-                tokens = set(tokenize(claim))
-                overlap = query_tokens & tokens
-                if not overlap:
-                    continue
-
-                score = len(overlap) / len(query_tokens) * 0.8
-                results.append(MemoryResult(
-                    source="findings",
-                    entry_id=finding.get("id", f"finding:{filepath.name}"),
-                    score=score,
-                    content=claim,
-                    metadata={
-                        "source_file": finding.get("source", ""),
-                        "confidence": finding.get("confidence", 0),
-                        "category": finding.get("category", ""),
-                    },
-                    tokens=_estimate_tokens(claim),
-                ))
-
-        results.sort(key=lambda r: r.score, reverse=True)
-        return results[:limit]
-
-    def _search_memory_md(
-        self,
-        query: str,
-        *,
-        limit: int = 3,
-    ) -> list[MemoryResult]:
-        """Search Claude Code MEMORY.md files."""
-        memory_dir = Path.home() / ".claude" / "projects"
-        if not memory_dir.exists():
-            return []
-
-        query_tokens = set(tokenize(query))
-        if not query_tokens:
-            return []
-
-        results = []
-        try:
-            for memory_file in memory_dir.rglob("memory/*.md"):
-                try:
-                    text = memory_file.read_text(encoding="utf-8", errors="replace")
-                except OSError:
-                    continue
-
-                file_tokens = set(tokenize(text[:3000]))
-                overlap = query_tokens & file_tokens
-                if not overlap:
-                    continue
-
-                score = len(overlap) / len(query_tokens) * 0.6
-                snippet = _extract_snippet(text, query_tokens, max_chars=300)
-
-                results.append(MemoryResult(
-                    source="memory_md",
-                    entry_id=f"memory:{memory_file.name}",
-                    score=score,
-                    content=snippet,
-                    metadata={"file": str(memory_file)},
-                    tokens=_estimate_tokens(snippet),
-                ))
-        except OSError:
-            pass
-
-        results.sort(key=lambda r: r.score, reverse=True)
-        return results[:limit]
 
 
 def _extract_tsv_messages(
