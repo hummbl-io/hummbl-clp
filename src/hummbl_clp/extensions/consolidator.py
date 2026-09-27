@@ -29,6 +29,7 @@ from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
 from hummbl_clp.core.indexer import tokenize
+from hummbl_clp.core.interfaces import SynthesisBackend
 from hummbl_clp.core.ledger_writer import post_entry, read_entries
 from hummbl_clp.core.models import LedgerEntry
 
@@ -48,6 +49,8 @@ def _ollama_generate(
     model: str = DEFAULT_MODEL,
     base_url: str = DEFAULT_OLLAMA_URL,
     timeout_s: int = 120,
+    temperature: float = 0.1,
+    num_predict: int = 512,
 ) -> str | None:
     """Call Ollama generate endpoint. Returns None on failure."""
     payload = {
@@ -56,8 +59,8 @@ def _ollama_generate(
         "stream": False,
         "think": False,
         "options": {
-            "temperature": 0.1,
-            "num_predict": 512,
+            "temperature": temperature,
+            "num_predict": num_predict,
         },
     }
     data = json.dumps(payload).encode("utf-8")
@@ -77,6 +80,38 @@ def _ollama_generate(
     except (HTTPError, URLError, TimeoutError, OSError, json.JSONDecodeError) as e:
         logger.warning("Ollama call failed: %s", e)
         return None
+
+
+class OllamaBackend(SynthesisBackend):
+    """Synthesis backend backed by a local Ollama server."""
+
+    def __init__(
+        self,
+        *,
+        base_url: str = DEFAULT_OLLAMA_URL,
+        model: str = DEFAULT_MODEL,
+    ) -> None:
+        self.base_url = base_url
+        self.model = model
+
+    @property
+    def name(self) -> str:
+        return "ollama"
+
+    def generate(
+        self,
+        prompt: str,
+        *,
+        model_name: str | None = None,
+        **kwargs: Any,
+    ) -> str | None:
+        """Generate a response via Ollama; returns None on failure."""
+        return _ollama_generate(
+            prompt,
+            model=model_name or self.model,
+            base_url=self.base_url,
+            **kwargs,
+        )
 
 
 def _is_kill_switch_engaged() -> bool:
@@ -214,6 +249,7 @@ def _group_similar(
 def _synthesize_group(
     group: list[LedgerEntry],
     *,
+    backend: SynthesisBackend | None = None,
     model: str = DEFAULT_MODEL,
     base_url: str = DEFAULT_OLLAMA_URL,
 ) -> str | None:
@@ -233,7 +269,9 @@ Entries:
 
 Consolidated summary:"""
 
-    return _ollama_generate(prompt, model=model, base_url=base_url)
+    if backend is None:
+        backend = OllamaBackend(base_url=base_url, model=model)
+    return backend.generate(prompt)
 
 
 def run_consolidation(
@@ -242,6 +280,7 @@ def run_consolidation(
     dry_run: bool = False,
     model: str = DEFAULT_MODEL,
     base_url: str = DEFAULT_OLLAMA_URL,
+    backend: SynthesisBackend | None = None,
 ) -> dict[str, Any]:
     """Run one consolidation pass.
 
@@ -299,7 +338,7 @@ def run_consolidation(
             result["consolidated"] += 1
             continue
 
-        summary = _synthesize_group(group, model=model, base_url=base_url)
+        summary = _synthesize_group(group, backend=backend, model=model, base_url=base_url)
         if not summary:
             summary = "Consolidated from related entries:\n" + "\n".join(
                 f"- {e.content[:150]}" for e in group
