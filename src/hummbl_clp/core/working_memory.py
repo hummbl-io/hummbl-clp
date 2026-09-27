@@ -61,8 +61,9 @@ MAX_TAGS = 5
 # Topics: alphanumeric, hyphens, underscores, dots
 _KEY_PATTERN = re.compile(r"^[a-zA-Z0-9_-]+:[a-zA-Z0-9_.-]+$")
 
-# Content scanning imported from ledger_writer (hardened: 42-char Unicode
-# blocklist + NFC normalization). See ledger_writer.scan_content().
+# Content scanning imported from ledger_writer (invisible-Unicode blocklist
+# and ranges, script-mixing confusable check, NFC normalization).
+# See ledger_writer.scan_content().
 
 
 class ConcurrencyError(Exception):
