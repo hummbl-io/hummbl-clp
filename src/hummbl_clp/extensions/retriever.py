@@ -12,10 +12,10 @@ import json
 import logging
 import os
 from pathlib import Path
-from typing import Any
 
 from hummbl_clp.extensions.feedback_tracker import log_retrieval
 from hummbl_clp.core.indexer import BM25Index, tokenize
+from hummbl_clp.core.interfaces import MemoryResult
 
 logger = logging.getLogger(__name__)
 
@@ -46,39 +46,6 @@ def _resolve_state_dir(override: str | Path | None = None) -> Path:
     except (subprocess.CalledProcessError, FileNotFoundError):
         pass
     return Path("_state")
-
-
-class MemoryResult:
-    """A single result from the Open Brain retriever."""
-
-    __slots__ = ("source", "entry_id", "score", "content", "metadata", "tokens")
-
-    def __init__(
-        self,
-        *,
-        source: str,
-        entry_id: str,
-        score: float,
-        content: str,
-        metadata: dict[str, Any],
-        tokens: int = 0,
-    ) -> None:
-        self.source = source
-        self.entry_id = entry_id
-        self.score = score
-        self.content = content
-        self.metadata = metadata
-        self.tokens = tokens or _estimate_tokens(content)
-
-    def to_dict(self) -> dict[str, Any]:
-        return {
-            "source": self.source,
-            "entry_id": self.entry_id,
-            "score": round(self.score, 4),
-            "content": self.content,
-            "metadata": self.metadata,
-            "tokens": self.tokens,
-        }
 
 
 class OpenBrainRetriever:
@@ -253,11 +220,12 @@ class OpenBrainRetriever:
         results = []
         for hit in hits:
             meta = hit["meta"]
+            content = meta.get("content_preview", "")
             results.append(MemoryResult(
                 source="ledger",
                 entry_id=hit["id"],
                 score=hit["score"],
-                content=meta.get("content_preview", ""),
+                content=content,
                 metadata={
                     "type": meta.get("type"),
                     "scope": meta.get("scope"),
@@ -266,6 +234,7 @@ class OpenBrainRetriever:
                     "confidence": meta.get("confidence"),
                     "tags": meta.get("tags", []),
                 },
+                tokens=_estimate_tokens(content),
             ))
         return results
 
@@ -320,6 +289,7 @@ class OpenBrainRetriever:
                 score=score * 0.7,  # Discount vs ledger BM25
                 content=snippet,
                 metadata={"file": str(filepath.name)},
+                tokens=_estimate_tokens(snippet),
             ))
 
         results.sort(key=lambda r: r.score, reverse=True)
@@ -367,6 +337,7 @@ class OpenBrainRetriever:
                         "confidence": finding.get("confidence", 0),
                         "category": finding.get("category", ""),
                     },
+                    tokens=_estimate_tokens(claim),
                 ))
 
         results.sort(key=lambda r: r.score, reverse=True)
@@ -409,6 +380,7 @@ class OpenBrainRetriever:
                     score=score,
                     content=snippet,
                     metadata={"file": str(memory_file)},
+                    tokens=_estimate_tokens(snippet),
                 ))
         except OSError:
             pass
