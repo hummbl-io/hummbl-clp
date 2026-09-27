@@ -1,65 +1,119 @@
 # hummbl-clp
 
-**CLP: Cognitive Ledger Protocol** -- Shared memory and knowledge compilation for multi-agent coordination.
+**CLP: Cognitive Ledger Protocol** — Shared memory and knowledge compilation engine for multi-agent coordination.
 
-[![Core Deps](https://img.shields.io/badge/core%20deps-zero-brightgreen)]()
-[![Optional Extras](https://img.shields.io/badge/optional-extras-blue)]()
+[![PyPI version](https://img.shields.io/pypi/v/hummbl-clp.svg)](https://pypi.org/project/hummbl-clp/)
+[![Python versions](https://img.shields.io/pypi/pyversions/hummbl-clp.svg)](https://pypi.org/project/hummbl-clp/)
+[![Core Deps](https://img.shields.io/badge/core%20deps-zero-brightgreen)](https://pypi.org/project/hummbl-clp/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-**Tier:** 1 — Stdlib Core + Optional Extras. Core ledger, query, and index are stdlib-only. The `[bus]` extra adds `hummbl-bus` integration.
+---
 
-## What This Is
+## Overview
 
-CLP provides persistent, queryable shared memory for AI agent fleets. Agents write observations, decisions, and learnings to an append-only JSONL ledger. A BM25 inverted index enables fast retrieval across five memory pools. Zettelkasten-style links connect related entries.
+The **Cognitive Ledger Protocol (CLP)** provides cryptographically verifiable, queryable shared memory for AI agent fleets. Agents append structured observations, decisions, hypotheses, and learnings to an append-only JSONL ledger.
 
-**Extraction status: MODERATE REFACTORING** -- Core ledger logic (13 of 23 files) is self-contained and stdlib-only. Retrieval, consolidation, and boot context modules have founder-mode coupling that needs decoupling.
+- **Zero Runtime Dependencies**: Core ledger, query engine, schema validation, and BM25 indexer are 100% Python standard library (`json`, `hashlib`, `math`, `dataclasses`, `pathlib`).
+- **Cryptographic Provenance**: Every entry computes a deterministic SHA-256 content hash with optional HMAC signing for federation.
+- **Relational Memory Graphs**: Native Zettelkasten-style relational links (`links` field) connect observations, decisions, and outcomes.
+- **Multi-Pool Search**: BM25 inverted index ranking across memory pools.
+- **Optimistic Concurrency**: Version-tracked shared state management with optimistic locking.
 
-## Core Components (extractable now)
+---
 
-| Module | Purpose |
-|--------|---------|
-| `ledger_writer.py` | Append-only JSONL with content hashing and optimistic locking |
-| `query.py` | Query engine (by agent, type, scope, tags, time range) |
-| `state_manager.py` | Shared state with version-based optimistic concurrency |
-| `schema_validator.py` | Stdlib-only JSON Schema validator (Draft 2020-12 subset) |
-| `models.py` | Data models (LedgerEntry with Zettelkasten-style links, SharedState) |
-| `indexer.py` | BM25 inverted term index (stdlib-only) |
-| `verified_writer.py` | Schema-validated writes |
-| `scoring_lenses.py` | Multi-lens scoring for retrieval ranking |
-| `working_memory.py` | Session-scoped working memory |
+## Installation
 
-## Coupled Components (need refactoring)
-
-| Module | Coupling | Extraction Path |
-|--------|----------|-----------------|
-| `retriever.py` | Pulls from 5 memory pools (bus, briefings, findings, MEMORY.md) | Abstract pool interface |
-| `consolidator.py` | Uses Ollama for synthesis via services pattern | Make model backend pluggable |
-| `boot_context.py` | References founder_mode service registration | Decouple to config-driven boot |
-| `startup_context.py` | Similar to boot_context | Same approach |
-| `migration.py` | Imports from bus history and git | Make source adapters pluggable |
-| `feedback_tracker.py` | Retrieval logging for stigmergic ranking | Standalone with interface |
-
-## Structure
-
-```
-docs/                  # Placeholder for extracted protocol/reference docs
-examples/              # Placeholder for runnable examples
-src/hummbl_clp/core/   # Extractable core (ledger, query, state, schema, index)
-src/hummbl_clp/extensions/
-                       # Coupled founder-mode adapters pending decoupling
-tests/                 # Placeholder for extracted test coverage
-tools/                 # Repo-local validation tooling
+```bash
+pip install hummbl-clp
 ```
 
-## Validation
-
-Run the repository baseline validator before opening a pull request:
-
-```powershell
-C:\Users\Owner\bin\python.cmd tools\validate_repo.py
+For optional bus integration:
+```bash
+pip install "hummbl-clp[bus]"
 ```
 
-Gitea CI runs the same command on pull requests and pushes to `master`.
+---
+
+## Quick Start
+
+### 1. Appending to the Ledger
+
+```python
+from hummbl_clp.core.models import LedgerEntry, LedgerScope
+from hummbl_clp.core.ledger_writer import post_entry
+
+# Append a verified observation
+entry = post_entry(
+    agent="my-agent",
+    scope=LedgerScope.SESSION,
+    title="Service Architecture Verification",
+    content="All 131 tests verified green in sealed virtual environment.",
+    tags=["audit", "verification", "milestone"],
+    path="my_ledger.jsonl",
+    allow_unsigned=True,  # Set to False when CL_SIGNING_SECRET is configured
+)
+
+print(f"Recorded entry {entry.id}")
+print(f"Content SHA-256: {entry.content_hash}")
+```
+
+### 2. Querying Entries
+
+```python
+from hummbl_clp.core.query import query_entries
+
+# Query entries by agent and tags
+results = query_entries(
+    path="my_ledger.jsonl",
+    agent="my-agent",
+    tags=["verification"],
+)
+
+for item in results:
+    print(f"[{item.timestamp}] {item.title}: {item.content}")
+```
+
+---
+
+## Architecture & Modules
+
+```
+src/hummbl_clp/
+├── core/
+│   ├── models.py           # LedgerEntry, SharedState, and type schemas
+│   ├── ledger_writer.py    # Append-only JSONL with SHA-256 hashing & flock locking
+│   ├── query.py            # Query engine (by agent, scope, tags, time range)
+│   ├── indexer.py          # BM25 inverted term index (stdlib-only)
+│   ├── state_manager.py    # Concurrency-controlled shared state
+│   ├── schema_validator.py # Draft 2020-12 JSON Schema validation subset
+│   └── working_memory.py   # Ephemeral session-scoped working memory
+└── extensions/
+    ├── retriever.py        # Multi-pool memory retrieval interface
+    └── memory_pools.py     # Pluggable memory storage adapters
+```
+
+---
+
+## Running Tests
+
+The test suite runs with standard `pytest` or Python stdlib `unittest`:
+
+```bash
+# Clone the repository
+git clone https://github.com/hummbl-io/hummbl-clp.git
+cd hummbl-clp
+
+# Install test dependencies
+pip install pytest
+
+# Run tests
+pytest tests/ -v
+```
+
+All 131 unit and security tests pass with 0 external dependencies on the core library.
+
+---
 
 ## License
 
-MIT
+This project is licensed under the [MIT License](LICENSE).

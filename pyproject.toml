@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "hummbl-clp"
-version = "0.1.0"
+version = "0.1.1"
 description = "Cognitive Ledger Protocol -- shared memory for multi-agent coordination"
 readme = "README.md"
 license = {text = "MIT"}
