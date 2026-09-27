@@ -23,10 +23,10 @@ import tempfile
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
-from urllib.error import HTTPError, URLError
-from urllib.request import Request, urlopen
 
+from hummbl_clp.core.interfaces import SynthesisBackend
 from hummbl_clp.core.models import LedgerEntry
+from hummbl_clp.extensions.consolidator import OllamaBackend
 
 logger = logging.getLogger(__name__)
 
@@ -178,6 +178,7 @@ def _should_reprocess(
 def _ollama_research(
     question: dict[str, Any],
     *,
+    backend: SynthesisBackend | None = None,
     model: str = DEFAULT_MODEL,
     base_url: str = DEFAULT_OLLAMA_URL,
     timeout_s: int = 180,
@@ -194,33 +195,14 @@ Research Question:
 
 Findings:"""
 
-    payload = {
-        "model": model,
-        "prompt": prompt,
-        "stream": False,
-        "think": False,
-        "options": {
-            "temperature": 0.3,
-            "num_predict": MAX_PREDICT,
-        },
-    }
-    data = json.dumps(payload).encode("utf-8")
-    req = Request(
-        url=f"{base_url}/api/generate",
-        method="POST",
-        data=data,
-        headers={
-            "Content-Type": "application/json",
-            "Accept": "application/json",
-        },
+    if backend is None:
+        backend = OllamaBackend(base_url=base_url, model=model)
+    return backend.generate(
+        prompt,
+        temperature=0.3,
+        num_predict=MAX_PREDICT,
+        timeout_s=timeout_s,
     )
-    try:
-        with urlopen(req, timeout=timeout_s) as resp:
-            body = json.loads(resp.read().decode("utf-8"))
-            return body.get("response", "")
-    except (HTTPError, URLError, TimeoutError, OSError, json.JSONDecodeError) as e:
-        logger.warning("Ollama research call failed for %s: %s", question["id"], e)
-        return None
 
 
 def _ingest_finding(
@@ -286,6 +268,7 @@ def run_processor(
     state_file: str | Path | None = None,
     model: str = DEFAULT_MODEL,
     ollama_url: str = DEFAULT_OLLAMA_URL,
+    backend: SynthesisBackend | None = None,
     brain_url: str = DEFAULT_OPEN_BRAIN_URL,
     dry_run: bool = False,
     max_per_run: int = MAX_PER_RUN,
@@ -335,7 +318,7 @@ def run_processor(
             result["processed"] += 1
             continue
 
-        findings = _ollama_research(question, model=model, base_url=ollama_url)
+        findings = _ollama_research(question, backend=backend, model=model, base_url=ollama_url)
         if not findings:
             result["errors"].append(f"{qid}: Ollama call failed")
             continue

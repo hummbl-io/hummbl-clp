@@ -80,7 +80,7 @@ class OpenBrainState:
     def _reindex(self) -> int:
         """Rebuild index from ledger."""
         count = self.index.build(ledger_path=self.ledger_path)
-        self.retriever._index_loaded = True
+        self.retriever.mark_index_loaded()
         try:
             self.index.save()
         except OSError as e:
