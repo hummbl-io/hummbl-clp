@@ -1,0 +1,6 @@
+# Cloudflare Pages configuration for clp.hummbl.dev
+# Generated during edge deployment expansion surge
+
+name = "hummbl-clp"
+compatibility_date = "2026-09-27"
+pages_build_output_dir = "public"

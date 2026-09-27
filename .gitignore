@@ -33,3 +33,6 @@ Thumbs.db
 
 # State (local-only, never tracked)
 _state/
+_between/
+_external/
+.pytest_tmp/
