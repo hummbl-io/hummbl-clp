@@ -44,6 +44,7 @@ class MemoryResult:
             "score": round(self.score, 4),
             "content": self.content,
             "metadata": self.metadata,
+            "tokens": self.tokens,
         }
 
 

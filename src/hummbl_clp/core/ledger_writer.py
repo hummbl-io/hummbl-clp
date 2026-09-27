@@ -108,7 +108,8 @@ _EXFILTRATION_PATTERNS: list[re.Pattern[str]] = [
 # Invisible Unicode characters used for steganographic attacks.
 # Covers: zero-width chars, bidi controls, format chars, unusual whitespace,
 # variation selectors, and tag characters. Expanded after pre-mortem found
-# U+1680 (Ogham Space) bypass.
+# U+1680 (Ogham Space) bypass; expanded again after the tag-character and
+# variation-selector range gaps were verified (U+E0000-E007F accepted).
 _INVISIBLE_CODEPOINTS = frozenset({
     # Zero-width characters
     "\u200b",  # Zero-width space
@@ -148,15 +149,94 @@ _INVISIBLE_CODEPOINTS = frozenset({
     "\u00ad",  # Soft hyphen
     "\u034f",  # Combining grapheme joiner
     "\u061c",  # Arabic letter mark
+    "\u070f",  # Syriac abbreviation mark (invisible; overlines following text)
     "\u180e",  # Mongolian vowel separator
-    # Variation selectors (can alter glyph rendering)
-    "\ufe00",  # Variation Selector-1
-    "\ufe0f",  # Variation Selector-16 (emoji presentation)
+    # Invisible/deprecated format controls (same Cf neighborhood as the
+    # listed U+2060 word joiner and U+2066-U+2069 isolates; a non-covered
+    # format char could act as an invisible token separator)
+    "\u2061",  # Function application (invisible)
+    "\u2062",  # Invisible times
+    "\u2063",  # Invisible separator
+    "\u2064",  # Invisible plus
+    "\u206a",  # Deprecated: inhibit symmetric swapping
+    "\u206b",  # Deprecated: activate symmetric swapping
+    "\u206c",  # Deprecated: inhibit Arabic form shaping
+    "\u206d",  # Deprecated: activate Arabic form shaping
+    "\u206e",  # Deprecated: national digit shapes
+    "\u206f",  # Deprecated: nominal digit shapes
     # Interlinear annotation anchors
     "\ufff9",  # Interlinear annotation anchor
     "\ufffa",  # Interlinear annotation separator
     "\ufffb",  # Interlinear annotation terminator
 })
+
+# Invisible/format codepoint RANGES (checked as ranges, not set entries --
+# 128+ tag chars and 240 variation selectors are impractical to enumerate).
+#   U+FE00-U+FE0F   Variation Selectors 1-16 (alter glyph presentation)
+#   U+E0000-U+E007F Tag characters: the classic ASCII-smuggling vector
+#                   (U+E0020-E007E map 1:1 onto printable ASCII)
+#   U+E0100-U+E01EF Variation Selectors Supplement
+#   U+13430-U+1343F Egyptian hieroglyph format controls (invisible joiners)
+#   U+1BCA0-U+1BCA3 Shorthand format controls (invisible letter overlaps)
+#   U+1D173-U+1D17A Musical format controls (invisible begin/end marks)
+_INVISIBLE_RANGES: tuple[tuple[int, int], ...] = (
+    (0xFE00, 0xFE0F),
+    (0x13430, 0x1343F),
+    (0x1BCA0, 0x1BCA3),
+    (0x1D173, 0x1D17A),
+    (0xE0000, 0xE007F),
+    (0xE0100, 0xE01EF),
+)
+
+
+def _is_invisible_char(c: str) -> bool:
+    """Return True for any listed invisible singleton or ranged block."""
+    if c in _INVISIBLE_CODEPOINTS:
+        return True
+    cp = ord(c)
+    return any(lo <= cp <= hi for lo, hi in _INVISIBLE_RANGES)
+
+
+# Script blocks whose codepoints include Latin lookalikes (confusables) --
+# the homoglyph-injection signature is a token containing BOTH an ASCII
+# Latin letter and one of these codepoints. Coverage is Cyrillic (all
+# blocks) and Greek (basic + extended); other confusable scripts
+# (fullwidth forms, Cherokee, Armenian, etc.) are NOT covered.
+_CONFUSABLE_SCRIPT_RANGES: tuple[tuple[int, int], ...] = (
+    (0x0370, 0x03FF),  # Greek and Coptic
+    (0x1F00, 0x1FFF),  # Greek Extended
+    (0x0400, 0x04FF),  # Cyrillic
+    (0x0500, 0x052F),  # Cyrillic Supplement
+    (0x2DE0, 0x2DFF),  # Cyrillic Extended-A
+    (0xA640, 0xA69F),  # Cyrillic Extended-B
+    (0x1C80, 0x1C8F),  # Cyrillic Extended-C
+)
+
+
+def _is_ascii_latin(c: str) -> bool:
+    return "a" <= c <= "z" or "A" <= c <= "Z"
+
+
+def _is_confusable_script(cp: int) -> bool:
+    return any(lo <= cp <= hi for lo, hi in _CONFUSABLE_SCRIPT_RANGES)
+
+
+def _iter_word_tokens(text: str):
+    """Yield maximal runs of letter/mark/number characters (word tokens).
+
+    Tokens split on whitespace, punctuation, underscores, and any char
+    that is not a letter (L*), mark (M*), or number (N*) -- so digits and
+    combining marks stay glued to the surrounding letters.
+    """
+    token: list[str] = []
+    for c in text:
+        if unicodedata.category(c)[0] in ("L", "M", "N"):
+            token.append(c)
+        elif token:
+            yield "".join(token)
+            token = []
+    if token:
+        yield "".join(token)
 
 
 class ContentScanError(ValueError):
@@ -169,19 +249,30 @@ class ContentScanError(ValueError):
 
 
 def scan_content(text: str) -> None:
-    """Scan text for prompt injection, credentials, exfiltration, and invisible chars.
+    """Scan text for prompt injection, credentials, exfiltration, invisible
+    chars, and script-mixing confusables.
 
-    Text is NFC-normalized before regex matching to prevent homographic
-    bypass attacks (e.g., Cyrillic 'а' vs Latin 'a'). Invisible character
-    detection runs on the RAW text (pre-normalization) to catch chars that
-    NFC would strip.
+    Invisible-character detection runs on the RAW text (pre-normalization)
+    to catch codepoints NFC could strip or alter. All other checks run on
+    NFC-normalized text so canonically-equivalent sequences (e.g. a letter
+    plus combining accent) reach the regexes in composed form. NFC does
+    NOT fold confusable lookalikes -- Cyrillic 'о' stays Cyrillic -- so
+    homographic bypass is handled by a separate script-mixing check:
+
+    any word token containing both ASCII Latin letters and Cyrillic or
+    Greek codepoints is rejected. This is a heuristic, not full Unicode
+    confusable detection: it covers Cyrillic (all blocks) and Greek
+    (basic + extended) mixed into Latin tokens only. A token written
+    entirely in lookalike codepoints of one script (e.g. all-Cyrillic
+    'іgnоrе'), and confusable scripts outside the listed ranges
+    (fullwidth forms, Cherokee, Armenian, ...), are NOT detected.
 
     Raises ContentScanError if suspicious content is detected.
     Scans all text fields that flow into the ledger and ultimately into
     boot context for other agents.
     """
     # 0. Check invisible chars on RAW text (before normalization strips them)
-    found_invisible = [c for c in text if c in _INVISIBLE_CODEPOINTS]
+    found_invisible = [c for c in text if _is_invisible_char(c)]
     if found_invisible:
         codepoints = ", ".join(f"U+{ord(c):04X}" for c in set(found_invisible))
         raise ContentScanError(
@@ -189,8 +280,22 @@ def scan_content(text: str) -> None:
             f"Contains invisible Unicode characters: {codepoints}",
         )
 
-    # Normalize to NFC to prevent homographic bypass (Cyrillic 'а' vs Latin 'a')
+    # Normalize to NFC: canonical composition only -- does NOT fold confusables.
     normalized = unicodedata.normalize("NFC", text)
+
+    # Script-mixing homoglyph check: a token combining ASCII Latin with
+    # Cyrillic/Greek codepoints (e.g. 'ignоre' with Cyrillic о) is the
+    # signature of regex-evading injection. Monolingual non-Latin tokens
+    # and script-mixing ACROSS tokens are legitimate and pass.
+    for token in _iter_word_tokens(normalized):
+        has_latin = any(_is_ascii_latin(c) for c in token)
+        if not has_latin:
+            continue
+        if any(_is_confusable_script(ord(c)) for c in token):
+            raise ContentScanError(
+                "script_mixing",
+                f"Token mixes ASCII Latin with Cyrillic/Greek: {token!r}",
+            )
 
     # 1. Prompt injection (on normalized text)
     for pattern in _INJECTION_PATTERNS:
@@ -386,8 +491,10 @@ def post_entry(
     path = _resolve_ledger_path(ledger_path)
     path.parent.mkdir(parents=True, exist_ok=True)
 
-    # Scan content for injection, credentials, exfiltration, invisible chars.
-    # This runs BEFORE hash verification to reject poisoned content early.
+    # Scan content for injection, credentials, exfiltration, invisible
+    # chars, and script-mixing confusables. Covers every free-text field
+    # (content, evidence, tags, agent, model) -- runs BEFORE hash
+    # verification to reject poisoned content early.
     scan_content(entry.content)
     if entry.evidence:
         scan_content(entry.evidence)
@@ -395,6 +502,8 @@ def post_entry(
         scan_content(" ".join(entry.tags))
     if entry.agent:
         scan_content(entry.agent)
+    if entry.model:
+        scan_content(entry.model)
 
     # Verify content hash
     if not entry.verify_hash():
