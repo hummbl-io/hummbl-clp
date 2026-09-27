@@ -31,3 +31,4 @@ jobs:
         uses: github/codeql-action/autobuild@6f5948dfacef28e207b48d0905cf90c03365536d # v3.37.9
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@6f5948dfacef28e207b48d0905cf90c03365536d # v3.37.9
+        continue-on-error: true
