@@ -22,6 +22,7 @@ jobs:
           Write-Host "Merge gate canary marker verified"
 
       - name: Report merge gate
+        shell: pwsh
         run: |
           $ts = Get-Date -AsUTC -Format "yyyy-MM-ddTHH:mm:ssZ"
           Write-Host "Merge gate canary passed at $ts"
