@@ -1,5 +1,8 @@
 # hummbl-clp
 
+> **Deprecation & Canonical Monorepo Notice:** `hummbl-clp` has been consolidated into `hummbl-cognition` in [`hummbl-io/oss/tree/main/packages/python/hummbl-cognition`](https://github.com/hummbl-io/oss/tree/main/packages/python/hummbl-cognition) (`pip install hummbl-cognition`). This standalone repository is retained only for historical reference prior to archival.
+
+
 **CLP: Cognitive Ledger Protocol** — Shared memory and knowledge compilation engine for multi-agent coordination.
 
 [![PyPI version](https://img.shields.io/pypi/v/hummbl-clp.svg)](https://pypi.org/project/hummbl-clp/)
