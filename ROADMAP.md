@@ -111,4 +111,4 @@ founder-mode coupling that needs decoupling.
 
 ---
 
-_Copyright 2026 HUMMBL, LLC. All rights reserved._
+_Copyright 2026 HUMMBL. All rights reserved._
