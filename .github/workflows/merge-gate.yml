@@ -4,6 +4,9 @@ on:
   pull_request:
     branches: [main]
 
+permissions:
+  contents: read
+
 jobs:
   merge-gate-check:
     if: github.event_name == 'pull_request'
