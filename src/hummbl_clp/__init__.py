@@ -31,6 +31,7 @@ from hummbl_clp.core.ledger_writer import (
 )
 from hummbl_clp.core.state_manager import (
     ConcurrencyError,
+    StateCorruptionError,
     claim_file,
     read_state,
     release_file,
@@ -76,6 +77,7 @@ __all__ = [
     "validate_integrity",
     # State manager
     "ConcurrencyError",
+    "StateCorruptionError",
     "claim_file",
     "read_state",
     "release_file",
