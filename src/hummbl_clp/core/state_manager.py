@@ -40,6 +40,14 @@ class ConcurrencyError(Exception):
     """Raised when optimistic concurrency check fails."""
 
 
+class StateCorruptionError(Exception):
+    """Raised when an existing shared-state file is malformed."""
+
+
+def _reject_nonstandard_json_constant(value: str) -> None:
+    raise ValueError(f"non-standard JSON constant: {value}")
+
+
 def _lock_file(file_obj) -> None:
     """Acquire an exclusive advisory lock for the current file object."""
     if fcntl is not None:
@@ -93,11 +101,32 @@ def _read_state_from_path(path: Path) -> SharedState:
         return SharedState()
     try:
         text = path.read_text(encoding="utf-8")
-        data = json.loads(text)
-        return SharedState.from_dict(data)
-    except (json.JSONDecodeError, KeyError, ValueError) as e:
+        data = json.loads(text, parse_constant=_reject_nonstandard_json_constant)
+        if not isinstance(data, dict):
+            raise ValueError("expected a JSON object")
+        state = SharedState.from_dict(data)
+        expected_types = {
+            "version": int,
+            "updated_at": str,
+            "updated_by": str,
+            "active_agents": dict,
+            "claimed_files": dict,
+            "active_decisions": list,
+            "sprint": dict,
+            "flags": dict,
+        }
+        for field, expected_type in expected_types.items():
+            value = getattr(state, field)
+            if not isinstance(value, expected_type) or (
+                field == "version" and isinstance(value, bool)
+            ):
+                raise ValueError(f"field {field!r} must be {expected_type.__name__}")
+        return state
+    except (KeyError, ValueError) as e:
         logger.warning("Failed to parse state file %s: %s", path, e)
-        return SharedState()
+        raise StateCorruptionError(
+            f"Existing shared-state file is invalid: {path}"
+        ) from e
 
 
 def _atomic_write(path: Path, state: SharedState) -> None:
@@ -128,7 +157,8 @@ def _atomic_write(path: Path, state: SharedState) -> None:
 def read_state(state_path: str | Path | None = None) -> SharedState:
     """Read current shared state from JSON file.
 
-    Returns a default empty state if the file doesn't exist.
+    Returns a default empty state if the file doesn't exist. Raises
+    StateCorruptionError if an existing file cannot be decoded safely.
     """
     path = _resolve_state_path(state_path)
     return _read_state_from_path(path)
@@ -161,6 +191,8 @@ def write_state(
     ------
     ConcurrencyError
         If expected_version doesn't match the file's current version.
+    StateCorruptionError
+        If the existing state file is malformed.
     """
     path = _resolve_state_path(state_path)
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -172,9 +204,9 @@ def write_state(
         try:
             # Optimistic concurrency check -- read UNDER lock to prevent
             # lost updates (two writers both passing the version check).
-            if expected_version is not None and path.exists():
+            if path.exists():
                 current = _read_state_from_path(path)
-                if current.version != expected_version:
+                if expected_version is not None and current.version != expected_version:
                     raise ConcurrencyError(
                         f"Version mismatch: expected {expected_version}, "
                         f"found {current.version}"
@@ -196,6 +228,11 @@ def _locked_read_modify_write(
     This is the safe pattern for all read-modify-write operations.
     modify_fn receives the current SharedState and should mutate + return it.
     Raises whatever modify_fn raises (e.g., ValueError for claim conflicts).
+
+    Raises
+    ------
+    StateCorruptionError
+        If an existing state file is malformed.
     """
     path = _resolve_state_path(state_path)
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -243,6 +280,8 @@ def claim_file(
     ------
     ValueError
         If the file is already claimed by a different agent.
+    StateCorruptionError
+        If the existing state file is malformed.
     """
 
     def _modify(state: SharedState) -> SharedState:
